@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 deathPosition; //Ž€‚ñ‚¾ˆÊ’u‚ð•Û‘¶‚·‚é
 
     private float currentJumpCharge;
-    [SerializeField] float jumpFoce = 3f;
+    //[SerializeField] float jumpFoce = 3f;
 
     private bool isChargingJump = false;
 
