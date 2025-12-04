@@ -46,12 +46,15 @@ public class ArrowLife_Trap : MonoBehaviour
             // 接触点に位置を合わせる
             transform.position = hit.point;
 
+            // hit.point に合わせたあと、forward 方向に少しだけ押し込む
+            //transform.position = hit.point - transform.forward * 0.1f;
+
             // 法線の逆方向を向かせて「刺さってる」感じにする
-            Vector3 forward = -hit.normal;
-            if (forward.sqrMagnitude > 0.001f)
-            {
-                transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
-            }
+            //Vector3 forward = -hit.normal;
+            //if (forward.sqrMagnitude > 0.001f)
+            //{
+            //    transform.rotation = Quaternion.LookRotation(forward, Vector3.up);
+            //}
 
             // 当たったオブジェクトの子にする（動く床にも追従）
             transform.SetParent(collision.collider.transform);
