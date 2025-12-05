@@ -57,7 +57,6 @@ public class PlayerControllerTest : MonoBehaviour
     {
         PlayerMoveMent();
 
-
         //カメラ関連
         HandleViewSwitch();
         HandleMouseLook();
@@ -88,7 +87,7 @@ public class PlayerControllerTest : MonoBehaviour
         move = Camera.main.transform.TransformDirection(move);
         move.y = 0;
         rb.MovePosition(transform.position + move.normalized * moveSpeed * Time.deltaTime);
-        Debug.Log("HERE");
+
         //ジャンプ
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
