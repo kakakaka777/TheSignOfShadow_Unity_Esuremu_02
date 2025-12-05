@@ -493,6 +493,114 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 248fa2f9b449eb146bc34c98583a5af5, type: 3}
+--- !u!1 &549649540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 549649545}
+  - component: {fileID: 549649544}
+  - component: {fileID: 549649543}
+  - component: {fileID: 549649541}
+  - component: {fileID: 549649542}
+  m_Layer: 0
+  m_Name: PoisonAria
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &549649541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549649540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7679e5ffe8a96024c9f51e4cbc57b2f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killMode: 0
+  killAfterSeconds: 3
+  resetOnExit: 0
+  playerTags:
+  - Player1
+  - Player2
+  - Player3
+  - Player4
+  - Player
+  activator: {fileID: 0}
+--- !u!114 &549649542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549649540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c28b000b13fb44fbade60c298e4376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObjects: []
+  targetColliders: []
+  targetComponents:
+  - {fileID: 549649541}
+  onDuration: 2
+  offDuration: 2
+  startOn: 1
+  playOnAwake: 1
+  loop: 1
+  activator: {fileID: 0}
+--- !u!65 &549649543
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549649540}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &549649544
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549649540}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &549649545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549649540}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7, y: 1.5, z: 5}
+  m_LocalScale: {x: 1, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &579194538
 GameObject:
   m_ObjectHideFlags: 0
@@ -2975,9 +3083,9 @@ GameObject:
   - component: {fileID: 543450652605119647}
   - component: {fileID: 3469287838601999162}
   - component: {fileID: 1711813854539057136}
+  - component: {fileID: 3469287838601999169}
   - component: {fileID: 3469287838601999166}
   - component: {fileID: 3469287838601999165}
-  - component: {fileID: 3469287838601999167}
   m_Layer: 0
   m_Name: hasami
   m_TagString: Untagged
@@ -5693,7 +5801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killMode: 0
-  killAfterSeconds: 1
+  killAfterSeconds: 0.1
   resetOnExit: 1
   playerTags:
   - Player1
@@ -5718,9 +5826,9 @@ MonoBehaviour:
   rightJaw: {fileID: 6730747451267808326}
   leftClosedEuler: {x: 0, y: 0, z: 0}
   rightClosedEuler: {x: 0, y: 0, z: 0}
-  closeSpeed: 8
+  closeSpeed: 5
   closedWaitTime: 2
-  openSpeed: 2
+  openSpeed: 1
   playerTags:
   - Player
   - Player1
@@ -5728,8 +5836,7 @@ MonoBehaviour:
   - Player3
   - Player4
   deathTrap: {fileID: 3469287838601999165}
-  callDeathOnClosed: 1
---- !u!65 &3469287838601999167
+--- !u!65 &3469287838601999169
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5744,7 +5851,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -12208,3 +12315,4 @@ SceneRoots:
   - {fileID: 2103693564}
   - {fileID: 687020452}
   - {fileID: 1115038740}
+  - {fileID: 549649545}
