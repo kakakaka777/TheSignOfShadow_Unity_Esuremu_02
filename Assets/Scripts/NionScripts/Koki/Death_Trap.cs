@@ -26,6 +26,10 @@ public class Death_Trap : MonoBehaviour
     [Tooltip("指定した場合、この TrapActivator が発動中のみ有効")]
     public Activator_Trap activator;
 
+    private bool isDying = false;
+    private bool isDead = false;
+
+
     // 当たっているプレイヤーごとの経過時間（AfterStaySeconds 用）
     private readonly Dictionary<GameObject, float> stayTimes = new Dictionary<GameObject, float>();
 
@@ -66,6 +70,8 @@ public class Death_Trap : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
+
         if (!IsPlayer(other.gameObject)) return;
         if (activator != null && !activator.isActive) return;
 
@@ -73,12 +79,15 @@ public class Death_Trap : MonoBehaviour
         {
             // 触れた瞬間に即死
             KillPlayer(other.gameObject);
+            isDead = true;
         }
         else // AfterStaySeconds
         {
             if (!stayTimes.ContainsKey(other.gameObject))
             {
                 stayTimes.Add(other.gameObject, 0f);
+                playerController.EnterDyingState();
+                Debug.Log("死ぬまでの時間計測開始");
             }
         }
     }
@@ -86,9 +95,8 @@ public class Death_Trap : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (killMode != KillMode.AfterStaySeconds) return;
-        if (!resetOnExit) return;
 
-        if (stayTimes.ContainsKey(other.gameObject))
+        if (stayTimes.ContainsKey(other.gameObject) && resetOnExit == true)
         {
             stayTimes.Remove(other.gameObject);
         }
@@ -111,6 +119,14 @@ public class Death_Trap : MonoBehaviour
         // var hp = player.GetComponent<PlayerHealth>();
         // if (hp != null) hp.DieByTrap();
 
-        Destroy(player);
+        PlayerController playerController = player.GetComponent<PlayerController>();
+
+        Debug.Log("プレイヤーは死んだぜ(>_<)");
+
+        playerController.Die();
+
+        
+
+        //Destroy(player);
     }
 }

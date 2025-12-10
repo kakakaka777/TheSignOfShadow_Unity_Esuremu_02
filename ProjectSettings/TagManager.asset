@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Damage
   - DeadBody
+  - Player1
   layers:
   - Default
   - TransparentFX
