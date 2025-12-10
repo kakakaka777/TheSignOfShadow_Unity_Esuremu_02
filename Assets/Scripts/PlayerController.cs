@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public GameObject deadSymbol;
     public GameObject nextPlayer;
     public GameObject Minigame;
+    public Transform startPoint;
     [SerializeField] GameObject ghostBoundaryVisual;
     [SerializeField] GameObject messageSelectUI;
     [SerializeField] GameObject doorPrefab;         // 配置したいDoorのプレハブ
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        this.gameObject.transform.position = startPoint.position; 
         circularMessageSelector.playerCenter = playerMessageCicleUI.transform;
 
         //プレイヤーステータス初期化
@@ -214,19 +216,35 @@ public class PlayerController : MonoBehaviour
 
 
 
-    void OnTriggerEnter(Collider other)
+    //void ontriggerenter(collider other)
+    //{
+    //    if (other.comparetag("damage") && !isdying)
+    //    {
+    //        enterdyingstate();
+    //    }
+    //}
+
+
+
+    //void EnterDyingState()
+    //{
+    //    isDying = true;
+    //    Debug.Log("プレイヤーは死にそうだぜ(>_<)");
+    //    deathPosition = transform.position;
+    //    bloodDrawingUI.SetActive(true); //血で描くUIなど表示
+
+    //    if (ghostBoundaryVisual != null)
+    //    {
+    //        GameObject ghostCircle = Instantiate(ghostBoundaryVisual, deathPosition + Vector3.up * 0.05f, Quaternion.identity);
+    //        ghostCircle.GetComponent<CircleDrawer>().radius = deadMaxMoveDistance;
+    //    }
+
+
+    //}
+
+    public void EnterDyingState()
     {
-        if (other.CompareTag("Damage") && !isDying)
-        {
-            EnterDyingState();
-        }
-    }
-
-
-
-    void EnterDyingState()
-    {
-        isDying = true;
+        //isDying = true;
         Debug.Log("プレイヤーは死にそうだぜ(>_<)");
         deathPosition = transform.position;
         bloodDrawingUI.SetActive(true); //血で描くUIなど表示
@@ -240,8 +258,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-    void Die()
+    public void Die()
     {
         Debug.Log("プレイヤーは死んだぜ(>_<)");
         isDying = false;
@@ -266,13 +283,13 @@ public class PlayerController : MonoBehaviour
         bloodDrawingUI.SetActive(false);
 
         //死亡位置にゴースト生成
-        Instantiate(deadSymbol, transform.position + new Vector3(0, -1, 0), Quaternion.Euler(90f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
+        //Instantiate(deadSymbol, transform.position + new Vector3(0, -1, 0), Quaternion.Euler(90f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
         Debug.Log("死体をスポーン");
 
 
         messageSelectUI.SetActive(true);
         ////プレイヤー非表示に
-        //gameObject.SetActive(false);
+        
 
         //Minigame.SetActive(true);
 
@@ -281,6 +298,8 @@ public class PlayerController : MonoBehaviour
         //    nextPlayer.SetActive(true);
         //    Debug.Log("次のプレイヤーに切り替え");
         //}
+
+
 
         //playerController.enabled = false;
 
