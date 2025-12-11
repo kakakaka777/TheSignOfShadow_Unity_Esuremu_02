@@ -23,4 +23,9 @@ public class SceneChange : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void ChangeScene_ToTitle()
+    {
+        SceneManager.LoadScene("Title");
+    }
 }

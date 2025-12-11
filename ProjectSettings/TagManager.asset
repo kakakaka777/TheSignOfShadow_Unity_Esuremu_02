@@ -7,6 +7,7 @@ TagManager:
   - Damage
   - DeadBody
   - Player1
+  - Goal
   layers:
   - Default
   - TransparentFX
