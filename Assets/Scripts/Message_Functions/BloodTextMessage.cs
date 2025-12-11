@@ -20,6 +20,12 @@ public class BloodTextMessage : MessageFunction
 
     void Update()
     {
+
+        if (canUse == false)
+        {
+            return;
+        }
+
         // 左クリックで印を残す
         if (Input.GetMouseButton(0) && isActivate == true)
         {
@@ -33,7 +39,7 @@ public class BloodTextMessage : MessageFunction
         }
     }
 
-    public override void Activate(Vector3 playerPosition)
+    public override void OnActivate(Vector3 playerPosition)
     {
         // UIから発動：プレイヤーの正面に印を残す
         Vector3 origin = playerPosition + Vector3.up * 1f;

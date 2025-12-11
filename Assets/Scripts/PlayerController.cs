@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxJumpCharge = 8f; // 最大ジャンプ力
     [SerializeField] float jumpChargeRate = 10f; // ジャンプ力のチャージ速度
 
-
     [Header("プレイヤーステータス")]
     public float maxHP = 100;
     public float currentHP = 0;
@@ -57,11 +56,13 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] float jumpFoce = 3f;
 
     private bool isChargingJump = false;
-
+    
     private bool isGrounded = true;
     private bool isFirstPerson = true;
     private bool isDying = false;
+    private bool isCameraOn = true;
 
+    
 
     void Start()
     {
@@ -109,9 +110,13 @@ public class PlayerController : MonoBehaviour
         PlayerMoveMent();
 
         //カメラ関連
-        HandleViewSwitch();
-        HandleMouseLook();
-        UpdateThirdPersonCamera();
+        if (isCameraOn == true)
+        {
+            HandleViewSwitch();
+            HandleMouseLook();
+            UpdateThirdPersonCamera();
+        }
+        
 
         if (isDying == true)
         {
@@ -266,11 +271,11 @@ public class PlayerController : MonoBehaviour
         deathPosition = transform.position;
         bloodDrawingUI.SetActive(true); //血で描くUIなど表示
 
-        if (ghostBoundaryVisual != null)
-        {
-            GameObject ghostCircle = Instantiate(ghostBoundaryVisual, deathPosition + Vector3.up * 0.05f, Quaternion.identity);
-            ghostCircle.GetComponent<CircleDrawer>().radius = deadMaxMoveDistance;
-        }
+        //if (ghostBoundaryVisual != null)
+        //{
+        //    GameObject ghostCircle = Instantiate(ghostBoundaryVisual, deathPosition + Vector3.up * 0.05f, Quaternion.identity);
+        //    ghostCircle.GetComponent<CircleDrawer>().radius = deadMaxMoveDistance;
+        //}
 
 
     }

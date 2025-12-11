@@ -22,7 +22,7 @@ public class LeaveBornScarMessage :MessageFunction
         }
     }
 
-    public override void Activate(Vector3 playerPosition)
+    public override void OnActivate(Vector3 playerPosition)
     {
         // メッセージUIなどから発動されたときの処理（例：周囲に印）
         RaycastHit hit;
