@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject messageSelectUI;
     [SerializeField] GameObject doorPrefab;         // 配置したいDoorのプレハブ
     [SerializeField] GameObject playerMessageCicleUI;
+    [SerializeField] GameObject WinUI;
+
 
     [SerializeField] int doorCount = 1;
 
@@ -44,6 +46,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private PlayerController playerController;
     public GameObject spawnedGhost; // 生成された死体の参照
+
+    [SerializeField] Transform goalPoint;
 
     private float xRotation = 0f;
 
@@ -63,6 +67,8 @@ public class PlayerController : MonoBehaviour
     {
         this.gameObject.transform.position = startPoint.position; 
         circularMessageSelector.playerCenter = playerMessageCicleUI.transform;
+
+        WinUI.SetActive(false);
 
         //プレイヤーステータス初期化
         currentHP = maxHP;
@@ -115,6 +121,11 @@ public class PlayerController : MonoBehaviour
                 Die();
             }
             return;
+        }
+
+        if (this.transform.position == goalPoint.position)
+        {
+            Goal();
         }
 
     }
@@ -214,7 +225,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Goal"))
+        {
+            Goal();
+        }
+    }
 
     //void ontriggerenter(collider other)
     //{
@@ -314,6 +331,14 @@ public class PlayerController : MonoBehaviour
     void OnCollisionExit(Collision other)
     {
         isGrounded = false;
+    }
+
+    void Goal()
+    {
+        WinUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
     }
 
 }
