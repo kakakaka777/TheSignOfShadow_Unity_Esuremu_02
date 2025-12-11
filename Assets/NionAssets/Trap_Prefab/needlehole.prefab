@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4639687557412662337
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.93
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.616395
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      propertyPath: m_Name
+      value: needlehole
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3093288084560971208}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1918723304689006590}
+  m_SourcePrefab: {fileID: 100100000, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+--- !u!1 &5521996510250438928 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d3721c10d95d3ee4d9dc80a05a0e4075, type: 3}
+  m_PrefabInstance: {fileID: 4639687557412662337}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &3093288084560971208
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5521996510250438928}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.5, z: 2.736692}
+  m_Center: {x: 0, y: -2, z: 0}
+--- !u!114 &1918723304689006590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5521996510250438928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7679e5ffe8a96024c9f51e4cbc57b2f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killMode: 1
+  killAfterSeconds: 1
+  resetOnExit: 1
+  playerTags:
+  - Player1
+  - Player2
+  - Player3
+  - Player4
+  - Player
+  activator: {fileID: 0}

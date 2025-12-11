@@ -258,9 +258,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7234952183286447437}
-  - component: {fileID: 7424648153250798850}
-  - component: {fileID: 3876786644978797768}
-  - component: {fileID: 8206202253679293515}
+  - component: {fileID: 9182620170398938092}
+  - component: {fileID: 2685771894011895071}
+  - component: {fileID: 5504577602675147289}
   - component: {fileID: 8099476832567315276}
   - component: {fileID: 5540674700897184179}
   m_Layer: 0
@@ -288,7 +288,7 @@ Transform:
   - {fileID: 7286677836849609540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7424648153250798850
+--- !u!114 &9182620170398938092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4462842285139801016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23ce9640f5598554a8bb357ccffdd3f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1dc1eb4892a2cca45967d28374c6c964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: -1, z: 0}
@@ -307,7 +307,7 @@ MonoBehaviour:
   useLocalSpace: 1
   playOnAwake: 1
   activator: {fileID: 0}
---- !u!114 &3876786644978797768
+--- !u!114 &2685771894011895071
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -316,16 +316,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4462842285139801016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82d93a48d41a7c74d89455dd3726be92, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ba23f6379bcfba4c867a9369b29f12e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destroyAfterSeconds: 2
   componentsToDisableOnStick:
-  - {fileID: 7424648153250798850}
+  - {fileID: 9182620170398938092}
   stickLayers:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8206202253679293515
+--- !u!114 &5504577602675147289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4462842285139801016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e30c1789d5580cd41a475f35ff6eceb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7679e5ffe8a96024c9f51e4cbc57b2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   killMode: 1
