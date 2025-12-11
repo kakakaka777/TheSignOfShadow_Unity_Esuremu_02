@@ -4,6 +4,25 @@ using UnityEngine;
 
 public abstract class MessageFunction : MonoBehaviour
 {
-    public abstract void Activate(Vector3 playerPosition);
+    public bool canUse = false;
+
+    // 呼び出し側は今まで通り Activate を呼ぶ
+
+
+    public void Activate(Vector3 playerPosition)
+    {
+        if (canUse == true)
+        {
+
+            OnActivate(playerPosition); 
+        }
+        else return;
+        
+
+        
+    }
+    // 各メッセージで処理する
+    public abstract void OnActivate(Vector3 playerPosition);
+
 
 }

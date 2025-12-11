@@ -9,14 +9,20 @@ public class SmokeMessage : MessageFunction
 
     void Update()
     {
+
+        if (canUse == false)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Activate(transform.position); // 自身の位置を起点に煙を発動
+            OnActivate(transform.position); // 自身の位置を起点に煙を発動
         }
     }
 
 
-    public override void Activate(Vector3 playerPosition)
+    public override void OnActivate(Vector3 playerPosition)
     {
         var colors = ColorPaletteManager.Instance.GetColors();
         if (colors.Count == 0)

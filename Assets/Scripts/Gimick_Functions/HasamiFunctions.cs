@@ -22,7 +22,7 @@ public class HasamiFunctions : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, player.position);
 
-        Debug.Log("パックン罠とプレイヤーの距離： " + distance);
+        //Debug.Log("パックン罠とプレイヤーの距離： " + distance);
 
         if (distance > closeDistance && !isClosed && isPlayerEnter)
         {

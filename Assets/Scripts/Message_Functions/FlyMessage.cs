@@ -8,17 +8,55 @@ public class FlyMessage : MessageFunction
     public int flyCount = 10;
     public float spawnRadius = 2.0f;
 
-    public override void Activate(Vector3 playerPosition)
-    {
-        Debug.Log("蝿を放つ（メッセージを残す機能)を実行する");
-        for (int i = 0; i < flyCount; i++)
-        {
-            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPos = playerPosition + new Vector3(randomCircle.x, 0.5f, randomCircle.y);
-            GameObject fly = Instantiate(flyPrefab, spawnPos, Quaternion.identity);
+    [SerializeField] int flyKabashirasNumberMax = 6;
 
-            // 蝿にふわふわ浮くような演出を入れてもOK（例：AddForceとか）
+    [SerializeField] float minScale = 0.05f;
+    [SerializeField] float maxScale = 0.1f;
+
+
+    private int flyKabashirasNumber = 0;
+
+    private void Update()
+    {
+        if (canUse == false)
+        {
+            return;
         }
+
+        
+
+    }
+
+    public override void OnActivate(Vector3 playerPosition)
+    {
+
+        
+
+        flyKabashirasNumber = 0;
+
+        Debug.Log("蝿を放つ（メッセージを残す機能)を実行する");
+        if (canUse == false)
+        {
+            return;
+        }
+
+        if (Input.GetButtonDown("Use"))
+        {
+            flyKabashirasNumber += 1;
+            if (flyKabashirasNumber <= flyKabashirasNumberMax)
+            {
+                GameObject fly = Instantiate(flyPrefab, playerPosition, Quaternion.identity);
+
+            }
+
+            Debug.Log("LeaveScarできる回数: " + flyKabashirasNumber + "/" + flyKabashirasNumberMax);
+
+
+        }
+
+
+
+
     }
 
 }

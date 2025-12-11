@@ -35,7 +35,9 @@ public class CircularMessageSelector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.U))
         {
             Vector3 pos = playerCenter.position;
-            options[selectedIndex].function.Activate(pos);
+            options[selectedIndex].function.canUse = true;
+            Debug.Log(options[selectedIndex].function.canUse);
+            options[selectedIndex].function.OnActivate(pos);
             gameObject.SetActive(false);
             Time.timeScale = 1f;
         }
