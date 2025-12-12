@@ -19729,9 +19729,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -2794408614243222833, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1523088010}
-    - targetCorrespondingSourceObject: {fileID: 8473246730030157042, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1856465954}
     - targetCorrespondingSourceObject: {fileID: 8817877994901154771, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 650363547}
@@ -28486,11 +28483,6 @@ MeshCollider:
 --- !u!1 &844346236 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8204945338516299583, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
-  m_PrefabInstance: {fileID: 562396072}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &844346237 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8218116809701548377, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
   m_PrefabInstance: {fileID: 562396072}
   m_PrefabAsset: {fileID: 0}
 --- !u!64 &844346238
@@ -54993,7 +54985,7 @@ Transform:
   m_GameObject: {fileID: 1428726427}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0869094, y: 0.6798931, z: 24.919731}
+  m_LocalPosition: {x: -0.005, y: 1.749, z: 23.341}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67482,32 +67474,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3888964171127995608, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
---- !u!1 &1856465951 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8473246730030157042, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
-  m_PrefabInstance: {fileID: 562396072}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1856465954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1856465951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eccaac225154e864f924a4ea8ff79d8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactKey: 101
-  door: {fileID: 844346237}
-  openOffset: {x: 1, y: 0, z: 0}
-  openTime: 0.5
-  useLocalPosition: 1
-  players: []
-  openDistance: 2
-  distanceOrigin: {fileID: 0}
-  noKeyMessageCooldown: 1
 --- !u!4 &1856723451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2681054650158310413, guid: 05a773e7ad8e575449f5204cea578663, type: 3}
@@ -82628,8 +82594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39540a217d8e3e44e88b905ddfd5a6d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
-  jumpForce: 7
+  moveSpeed: 10
+  jumpForce: 3
   deadMaxMoveDistance: 7
   maxJumpCharge: 8
   jumpChargeRate: 10
