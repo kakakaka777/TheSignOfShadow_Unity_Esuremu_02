@@ -1,30 +1,30 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GoalDoor : MonoBehaviour
 {
+    [Header("入力設定")]
+    public KeyCode interactKey = KeyCode.E;
+
     [Header("ドアのスライド設定")]
-    [Tooltip("スライドさせるドア本体(Transform)")]
     public Transform door;
-
-    [Tooltip("閉じた位置からどれだけ動かすか（向き＋距離）")]
     public Vector3 openOffset = new Vector3(1f, 0f, 0f);
-
-    [Tooltip("開くのにかかる時間（秒）")]
     public float openTime = 0.5f;
-
-    [Tooltip("ローカル座標で動かす場合はオン（通常はオン推奨）")]
     public bool useLocalPosition = true;
 
     [Header("プレイヤーと距離条件")]
-    [Tooltip("距離判定に使うプレイヤー達（2人まで想定）")]
-    public Transform[] players;  // ← 単体から配列に変更！
+    [Tooltip("空でもOK（キー押下時に Player/Player1 を自動探索します）")]
+    public Transform[] players;
 
-    [Tooltip("この距離以内にプレイヤーが来たら開く")]
     public float openDistance = 2f;
 
-    [Tooltip("距離の中心にしたい位置。未設定ならこのオブジェクトの位置を使う")]
+    [Tooltip("距離の中心。未設定なら door → transform の順で使う")]
     public Transform distanceOrigin;
+
+    [Header("メッセージ")]
+    public float noKeyMessageCooldown = 0.8f;
+    private float nextNoKeyMessageTime = 0f;
 
     private bool isOpening = false;
     private bool isOpened = false;
@@ -41,57 +41,90 @@ public class GoalDoor : MonoBehaviour
             return;
         }
 
-        // 距離中心が未設定なら自分を使う
+        // 距離原点のデフォルトを door に寄せる（pivotズレ対策）
         if (distanceOrigin == null)
-        {
-            distanceOrigin = transform;
-        }
+            distanceOrigin = door != null ? door : transform;
 
-        // 閉じた位置の記録
-        if (useLocalPosition)
-        {
-            closedPos = door.localPosition;
-        }
-        else
-        {
-            closedPos = door.position;
-        }
+        if (useLocalPosition) closedPos = door.localPosition;
+        else closedPos = door.position;
 
         openPos = closedPos + openOffset;
-
-        // players が空なら Tag=Player を補完する（1人でも2人でも拾う）
-        if (players == null || players.Length == 0)
-        {
-            GameObject[] found = GameObject.FindGameObjectsWithTag("Player");
-            players = new Transform[found.Length];
-            for (int i = 0; i < found.Length; i++)
-                players[i] = found[i].transform;
-        }
     }
 
     private void Update()
     {
         if (isOpened || isOpening) return;
 
-        // 鍵を持っていなければ開かない
-        if (GameManager.Instance == null || !GameManager.Instance.hasKey) return;
+        // ★「開けようとした時」だけ判定する
+        if (!Input.GetKeyDown(interactKey)) return;
 
-        // いずれかのプレイヤーが距離内であれば開く
-        if (!IsAnyPlayerInRange()) return;
+        // ★毎回、プレイヤーを拾い直す（死んで切り替わってもOK）
+        RefreshPlayers();
 
-        // 開く
+        bool inRange = IsAnyPlayerInRange(out float nearestDist);
+
+        bool hasKey = (GameManager.Instance != null && GameManager.Instance.hasKey);
+
+        // ★デバッグログ（今だけ有効でOK）
+        Debug.Log($"[GoalDoor] KeyPressed={interactKey} inRange={inRange} nearestDist={nearestDist:0.00} hasKey={hasKey} playersCount={(players == null ? 0 : players.Length)}");
+
+        // 距離外なら何もしない（要件に無いのでメッセージも出さない）
+        if (!inRange) return;
+
+        // 鍵がないならメッセージ（キー押下時のみ）
+        if (!hasKey)
+        {
+            if (Time.time >= nextNoKeyMessageTime)
+            {
+                MessageUI.Show("You don't have the key.");
+                nextNoKeyMessageTime = Time.time + noKeyMessageCooldown;
+            }
+            return;
+        }
+
+        // 鍵あり＆距離内＆キー押下 → 開く
         StartCoroutine(OpenDoor());
     }
 
-    /// <summary>
-    /// players に登録されたプレイヤーのうち1人でも距離内なら true
-    /// </summary>
-    private bool IsAnyPlayerInRange()
+    private void RefreshPlayers()
     {
+        var list = new List<Transform>();
+
+        AddByTagSafe(list, "Player");
+        AddByTagSafe(list, "Player1");
+
+        // インスペクターで指定がある場合も混ぜたいならここで追加でもOKだが、
+        // 今回は「確実に今いるプレイヤー」を優先して探索結果で置き換える
+        players = list.ToArray();
+    }
+
+    private void AddByTagSafe(List<Transform> list, string tag)
+    {
+        try
+        {
+            var found = GameObject.FindGameObjectsWithTag(tag);
+            foreach (var go in found)
+            {
+                if (go != null && go.activeInHierarchy)
+                    list.Add(go.transform);
+            }
+        }
+        catch
+        {
+            // タグ未登録などは無視
+        }
+    }
+
+    private bool IsAnyPlayerInRange(out float nearestDist)
+    {
+        nearestDist = float.MaxValue;
+
         if (players == null || players.Length == 0) return false;
 
         float sqrRange = openDistance * openDistance;
         Vector3 origin = distanceOrigin.position;
+
+        bool any = false;
 
         foreach (var p in players)
         {
@@ -99,12 +132,13 @@ public class GoalDoor : MonoBehaviour
             if (!p.gameObject.activeInHierarchy) continue;
 
             float sqrDist = (p.position - origin).sqrMagnitude;
-            if (sqrDist <= sqrRange)
-            {
-                return true; // 誰か1人でも範囲内ならOK
-            }
+            float dist = Mathf.Sqrt(sqrDist);
+            if (dist < nearestDist) nearestDist = dist;
+
+            if (sqrDist <= sqrRange) any = true;
         }
-        return false;
+
+        return any;
     }
 
     private IEnumerator OpenDoor()
@@ -119,10 +153,8 @@ public class GoalDoor : MonoBehaviour
 
             Vector3 newPos = Vector3.Lerp(closedPos, openPos, t);
 
-            if (useLocalPosition)
-                door.localPosition = newPos;
-            else
-                door.position = newPos;
+            if (useLocalPosition) door.localPosition = newPos;
+            else door.position = newPos;
 
             yield return null;
         }

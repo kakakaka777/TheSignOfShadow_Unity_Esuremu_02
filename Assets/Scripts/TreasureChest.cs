@@ -3,9 +3,9 @@ using UnityEngine;
 public class TreasureChest : MonoBehaviour
 {
     [Header("宝箱のパーツ")]
-    public Transform chestTop;      // 上のフタ
-    public float openAngle = -90f;  // 開く角度
-    public float openSpeed = 2f;    // 開くスピード
+    public Transform chestTop;
+    public float openAngle = -90f;
+    public float openSpeed = 2f;
 
     [Header("宝箱の状態")]
     public bool isOpened = false;
@@ -17,12 +17,8 @@ public class TreasureChest : MonoBehaviour
 
     void Start()
     {
-        // Playerタグを持つオブジェクトを取得
         GameObject p = GameObject.FindWithTag("Player");
-        if (p != null)
-        {
-            playerT = p.transform;
-        }
+        if (p != null) playerT = p.transform;
     }
 
     void Update()
@@ -30,10 +26,8 @@ public class TreasureChest : MonoBehaviour
         if (isOpened) return;
         if (playerT == null) return;
 
-        // プレイヤーとの距離を計算（Colliderが不要になる）
         float distance = Vector3.Distance(playerT.position, transform.position);
 
-        // 距離内かつ E キーで開ける
         if (distance <= openDistance && Input.GetKeyDown(KeyCode.E))
         {
             OpenChest();
@@ -45,8 +39,13 @@ public class TreasureChest : MonoBehaviour
         isOpened = true;
         StartCoroutine(OpenTop());
 
-        // GameManager に鍵入手を通知（必要なら削除可）
         GameManager.Instance?.GetKey();
+
+        // ★メッセージ
+        MessageUI.Show("You get a key.");
+
+        // ★確認用ログ（ここが true になってるかが重要）
+        Debug.Log($"[TreasureChest] hasKey = {GameManager.Instance != null && GameManager.Instance.hasKey}");
     }
 
     System.Collections.IEnumerator OpenTop()
