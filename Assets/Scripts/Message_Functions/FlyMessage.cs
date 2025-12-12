@@ -5,13 +5,12 @@ using UnityEngine;
 public class FlyMessage : MessageFunction
 {
     public GameObject flyPrefab;
-    public int flyCount = 10;
-    public float spawnRadius = 2.0f;
+    
+
 
     [SerializeField] int flyKabashirasNumberMax = 6;
 
-    [SerializeField] float minScale = 0.05f;
-    [SerializeField] float maxScale = 0.1f;
+    
 
 
     private int flyKabashirasNumber = 0;
@@ -23,40 +22,50 @@ public class FlyMessage : MessageFunction
             return;
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            flyKabashirasNumber += 1;
+
+            if (PlayerID.playerID == 0)
+            {
+                if (flyKabashirasNumber <= flyKabashirasNumberMax)
+                {
+                    Instantiate(flyPrefab, player01.position, Quaternion.identity);
+                }
+            }
+            else if (PlayerID.playerID == 1)
+            {
+                if (flyKabashirasNumber <= flyKabashirasNumberMax)
+                {
+                    Instantiate(flyPrefab, player02.position, Quaternion.identity);
+                }
+            }
+
+
+            Debug.Log("蝿設置できる回数: " + flyKabashirasNumber + "/" + flyKabashirasNumberMax);
+
+
+        }
+        if (flyKabashirasNumber >= flyKabashirasNumberMax)
+        {
+            flyKabashirasNumber = flyKabashirasNumberMax;
+        }
 
     }
 
     public override void OnActivate(Vector3 playerPosition)
     {
 
-        
+
 
         flyKabashirasNumber = 0;
 
-        Debug.Log("蝿を放つ（メッセージを残す機能)を実行する");
-        if (canUse == false)
-        {
-            return;
-        }
+        
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            flyKabashirasNumber += 1;
-            if (flyKabashirasNumber <= flyKabashirasNumberMax)
-            {
-                GameObject fly = Instantiate(flyPrefab, playerPosition, Quaternion.identity);
+        Debug.Log("蝿を放つ（メッセージを残す機能)を実行する"); 
+        
 
-            }
-
-            Debug.Log("LeaveScarできる回数: " + flyKabashirasNumber + "/" + flyKabashirasNumberMax);
-
-
-        }
-
-
-
+        
 
     }
-
 }

@@ -52,6 +52,11 @@ public class LeaveScarMessage : MessageFunction
                     }
                 }
             }
+            else
+            {
+                scarNumber = scarNumberMax;
+            }
+
 
 
             Debug.Log("LeaveScarできる回数: " + scarNumber + "/" + scarNumberMax);
@@ -63,6 +68,9 @@ public class LeaveScarMessage : MessageFunction
 
     public override void OnActivate(Vector3 playerPosition)
     {
+        Debug.Log("LeaveScar（メッセージを残す機能)を実行する");
+
+
         // メッセージUIなどから発動されたときの処理（例：周囲に印）
         RaycastHit hit;
         Vector3 rayOrigin = playerPosition + Vector3.up * 1f;
@@ -82,7 +90,7 @@ public class LeaveScarMessage : MessageFunction
         Quaternion baseRot = Quaternion.LookRotation(hit.normal);
 
         // 法線方向（前方向）に対してランダムにひねる
-        Quaternion randomRoll = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        Quaternion randomRoll = Quaternion.Euler(0f, 0f, Random.Range(0f, 15f));
 
         GameObject scratch = Instantiate(
             scratchDecalPrefab,

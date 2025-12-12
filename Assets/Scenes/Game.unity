@@ -11231,7 +11231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killMode: 0
-  killAfterSeconds: 5
+  killAfterSeconds: 0
   resetOnExit: 0
   playerTags:
   - Player
@@ -18608,6 +18608,112 @@ CapsuleCollider:
   m_Height: 0.13
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &937369117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 937369118}
+  - component: {fileID: 937369121}
+  - component: {fileID: 937369120}
+  - component: {fileID: 937369119}
+  m_Layer: 3
+  m_Name: Ground (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &937369118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937369117}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -82, y: 0.12, z: 0}
+  m_LocalScale: {x: 4.1464, y: 1, z: 3.0182152}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1323222894}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &937369119
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937369117}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &937369120
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937369117}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 08564edc18b6bb742b483fc8ddd847c8, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &937369121
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937369117}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &939455995
 GameObject:
   m_ObjectHideFlags: 0
@@ -29459,7 +29565,7 @@ MonoBehaviour:
     function: {fileID: 1919207966}
     text: {fileID: 430376101}
   - name: BornDeadBody
-    function: {fileID: 1919207966}
+    function: {fileID: 2142205764}
     text: {fileID: 223940367}
   - name: Smoke
     function: {fileID: 1793592540}
@@ -29729,6 +29835,7 @@ Transform:
   - {fileID: 1248112683}
   - {fileID: 583969185}
   - {fileID: 794377921}
+  - {fileID: 937369118}
   - {fileID: 1136699205}
   - {fileID: 1721012673}
   - {fileID: 1447302932}
@@ -31004,6 +31111,7 @@ GameObject:
   - component: {fileID: 1395865634}
   - component: {fileID: 1395865633}
   - component: {fileID: 1395865637}
+  - component: {fileID: 1395865638}
   m_Layer: 3
   m_Name: Wall (1)
   m_TagString: Untagged
@@ -31119,6 +31227,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10.000005, y: 0.0000037865643, z: 10.000002}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1395865638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395865632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df716bc60ac59404b94b9b4e1dbe9cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainTextureName: _MainTex
+  bumpTextureName: _BumpMap
+  paintMaterial: {fileID: 2100000, guid: f79103f10b546ec4f94ea145f671da2a, type: 2}
+  blush: {fileID: 2800000, guid: c21b1f541cbdc404492daab2c534f944, type: 3}
+  blushScale: 1
+  blushColor: {r: 1, g: 0, b: 0, a: 0}
+  paintBumpMaterial: {fileID: 2100000, guid: f79103f10b546ec4f94ea145f671da2a, type: 2}
+  blushBump: {fileID: 2800000, guid: c21b1f541cbdc404492daab2c534f944, type: 3}
+  bumpBlend: 1
 --- !u!1001 &1396680625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33256,6 +33385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canUse: 0
+  player01: {fileID: 0}
+  player02: {fileID: 0}
 --- !u!1 &1570391822
 GameObject:
   m_ObjectHideFlags: 0
@@ -35784,6 +35915,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canUse: 0
+  player01: {fileID: 0}
+  player02: {fileID: 0}
   smokePrefab: {fileID: 1018725798}
   spawnPoint: {fileID: 1994713196}
 --- !u!1001 &1794648621
@@ -37193,6 +37326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canUse: 0
+  player01: {fileID: 0}
+  player02: {fileID: 0}
   scratchDecalPrefab: {fileID: 9155829682377016054, guid: b970a0caddae35745aca605176673be4, type: 3}
   maxDistance: 5
   playerCamera: {fileID: 1435030825}
@@ -38064,6 +38199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canUse: 0
+  player01: {fileID: 0}
+  player02: {fileID: 0}
   playerCamera: {fileID: 1435030825}
   brushTexture: {fileID: 2800000, guid: c21b1f541cbdc404492daab2c534f944, type: 3}
   paintColor: {r: 1, g: 0, b: 0, a: 1}
@@ -38252,6 +38389,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ff57084ff9d9c141a11a641faa9c8a2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1994713197}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ff57084ff9d9c141a11a641faa9c8a2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1994713198}
   m_SourcePrefab: {fileID: 100100000, guid: 2ff57084ff9d9c141a11a641faa9c8a2, type: 3}
 --- !u!1 &1994713192 stripped
 GameObject:
@@ -38358,6 +38498,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994713192}
   m_Enabled: 1
+--- !u!114 &1994713198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994713192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e359ce983be78f43a5b187418684dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1996520006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38851,12 +39003,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canUse: 0
+  player01: {fileID: 1994713196}
+  player02: {fileID: 2146371576}
   flyPrefab: {fileID: 232792291}
-  flyCount: 7
-  spawnRadius: 2
-  flyKabashirasNumberMax: 6
-  minScale: 0.05
-  maxScale: 0.1
+  flyKabashirasNumberMax: 3
 --- !u!1 &2028838173
 GameObject:
   m_ObjectHideFlags: 0
@@ -40636,9 +40786,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canUse: 0
+  player01: {fileID: 0}
+  player02: {fileID: 0}
   scratchDecalPrefab: {fileID: 9081695816332060411, guid: 2edffcf9ffda4964b8a8b350c89d3a3a, type: 3}
-  maxDistance: 7
+  maxDistance: 3
+  bornScarNumberMax: 2
   playerCamera: {fileID: 1435030825}
+  playerCamera_02: {fileID: 493927117}
 --- !u!1001 &2146371574
 PrefabInstance:
   m_ObjectHideFlags: 0

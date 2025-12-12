@@ -4,7 +4,13 @@ using UnityEngine;
 
 public abstract class MessageFunction : MonoBehaviour
 {
+    
     public bool canUse = false;
+
+    public Transform player01;
+    public Transform player02;
+
+    
 
     // ŒÄ‚Ño‚µ‘¤‚Í¡‚Ü‚Å’Ê‚è Activate ‚ğŒÄ‚Ô
 
@@ -16,6 +22,16 @@ public abstract class MessageFunction : MonoBehaviour
 
             OnActivate(playerPosition); 
         }
+
+        //if (PlayerID.playerID == 0)
+        //{
+        //    PlayerID.playTransform = player01;
+        //}
+        //else if (PlayerID.playerID == 1)
+        //{
+        //    PlayerID.playTransform = player02;
+        //}
+
         else return;
         
 
