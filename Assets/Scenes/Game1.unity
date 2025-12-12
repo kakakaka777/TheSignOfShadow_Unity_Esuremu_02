@@ -139,6 +139,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hasami
       objectReference: {fileID: 0}
+    - target: {fileID: 1847325504713367571, guid: e5445441ded86d34b84985df138ade48, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6207550131380538823, guid: e5445441ded86d34b84985df138ade48, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
@@ -5780,6 +5784,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -49433937089056712, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
+--- !u!4 &175783025 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4579693450815900886, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
+  m_PrefabInstance: {fileID: 562396072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &176122551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7839,9 +7848,11 @@ MonoBehaviour:
     openOffset: {x: 0, y: 0, z: 0}
     closedPos: {x: 0, y: 0, z: 0}
     openPos: {x: 0, y: 0, z: 0}
-  players: []
-  openDistance: 0
-  distanceOrigin: {fileID: 0}
+  players:
+  - {fileID: 1994713196}
+  - {fileID: 2146371576}
+  openDistance: 2
+  distanceOrigin: {fileID: 100344960}
 --- !u!1001 &225677123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34046,9 +34057,11 @@ MonoBehaviour:
     openOffset: {x: 0, y: 0, z: 0.75}
     closedPos: {x: 0, y: 0, z: 0}
     openPos: {x: 0, y: 0, z: 0}
-  players: []
-  openDistance: 0
-  distanceOrigin: {fileID: 0}
+  players:
+  - {fileID: 1994713196}
+  - {fileID: 2146371576}
+  openDistance: 2
+  distanceOrigin: {fileID: 305350034}
 --- !u!1 &1018725798
 GameObject:
   m_ObjectHideFlags: 0
@@ -40034,9 +40047,11 @@ MonoBehaviour:
     openOffset: {x: 0, y: 0, z: 0}
     closedPos: {x: 0, y: 0, z: 0}
     openPos: {x: 0, y: 0, z: 0}
-  players: []
-  openDistance: 0
-  distanceOrigin: {fileID: 0}
+  players:
+  - {fileID: 1994713196}
+  - {fileID: 2146371576}
+  openDistance: 2
+  distanceOrigin: {fileID: 146221627}
 --- !u!1001 &1045201391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40472,6 +40487,10 @@ PrefabInstance:
     - target: {fileID: 1847325504713367571, guid: e5445441ded86d34b84985df138ade48, type: 3}
       propertyPath: m_Name
       value: hasami (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847325504713367571, guid: e5445441ded86d34b84985df138ade48, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6207550131380538823, guid: e5445441ded86d34b84985df138ade48, type: 3}
       propertyPath: m_LocalScale.x
@@ -44154,7 +44173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1162102720
 Transform:
   m_ObjectHideFlags: 0
@@ -48421,9 +48440,11 @@ MonoBehaviour:
     openOffset: {x: 0.75, y: 0, z: 0}
     closedPos: {x: 0, y: 0, z: 0}
     openPos: {x: 0, y: 0, z: 0}
-  players: []
-  openDistance: 0
-  distanceOrigin: {fileID: 0}
+  players:
+  - {fileID: 1994713196}
+  - {fileID: 2146371576}
+  openDistance: 2
+  distanceOrigin: {fileID: 408056812}
 --- !u!4 &1286528542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2681054650158310413, guid: 05a773e7ad8e575449f5204cea578663, type: 3}
@@ -49674,7 +49695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1311453321
 Transform:
   m_ObjectHideFlags: 0
@@ -51615,9 +51636,11 @@ MonoBehaviour:
     openOffset: {x: 0, y: 0, z: 0}
     closedPos: {x: 0, y: 0, z: 0}
     openPos: {x: 0, y: 0, z: 0}
-  players: []
-  openDistance: 0
-  distanceOrigin: {fileID: 0}
+  players:
+  - {fileID: 1994713196}
+  - {fileID: 2146371576}
+  openDistance: 2
+  distanceOrigin: {fileID: 1944835674}
 --- !u!4 &1360425776 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2681054650158310413, guid: 05a773e7ad8e575449f5204cea578663, type: 3}
@@ -52314,7 +52337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1373167044
 Transform:
   m_ObjectHideFlags: 0
@@ -53479,7 +53502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1392342285
 Transform:
   m_ObjectHideFlags: 0
@@ -63058,9 +63081,11 @@ MonoBehaviour:
     openOffset: {x: -0.75, y: 0, z: 0}
     closedPos: {x: 0, y: 0, z: 0}
     openPos: {x: 0, y: 0, z: 0}
-  players: []
-  openDistance: 0
-  distanceOrigin: {fileID: 0}
+  players:
+  - {fileID: 1994713196}
+  - {fileID: 2146371576}
+  openDistance: 2
+  distanceOrigin: {fileID: 175783025}
 --- !u!1 &1703548226 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5228194052252723460, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
@@ -67983,7 +68008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1886129562
 Transform:
   m_ObjectHideFlags: 0
@@ -76216,12 +76241,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 650363546}
-  openOffset: {x: 1, y: 0, z: 0}
+  openOffset: {x: 0.75, y: 0, z: 0}
   openTime: 0.5
   useLocalPosition: 1
-  players: []
+  players:
+  - {fileID: 1994713196}
+  - {fileID: 2146371576}
   openDistance: 2
-  distanceOrigin: {fileID: 0}
+  distanceOrigin: {fileID: 650363546}
 --- !u!1 &1978914720
 GameObject:
   m_ObjectHideFlags: 0
