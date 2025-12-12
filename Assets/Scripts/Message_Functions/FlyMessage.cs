@@ -40,7 +40,7 @@ public class FlyMessage : MessageFunction
             return;
         }
 
-        if (Input.GetButtonDown("Use"))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             flyKabashirasNumber += 1;
             if (flyKabashirasNumber <= flyKabashirasNumberMax)

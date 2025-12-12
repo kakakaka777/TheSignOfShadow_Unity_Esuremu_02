@@ -28,7 +28,7 @@ public class LeaveScarMessage : MessageFunction
 
         // 左クリックされたら印を残す
         // 回数制限必要っぽいな
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             RaycastHit hit;
 

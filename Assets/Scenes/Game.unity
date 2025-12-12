@@ -38854,6 +38854,9 @@ MonoBehaviour:
   flyPrefab: {fileID: 232792291}
   flyCount: 7
   spawnRadius: 2
+  flyKabashirasNumberMax: 6
+  minScale: 0.05
+  maxScale: 0.1
 --- !u!1 &2028838173
 GameObject:
   m_ObjectHideFlags: 0
@@ -40743,6 +40746,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ff57084ff9d9c141a11a641faa9c8a2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2146371577}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ff57084ff9d9c141a11a641faa9c8a2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2146371580}
   m_SourcePrefab: {fileID: 100100000, guid: 2ff57084ff9d9c141a11a641faa9c8a2, type: 3}
 --- !u!1 &2146371575 stripped
 GameObject:
@@ -40841,6 +40847,14 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.365349, y: 11.518583, z: 3.4605901}
   m_Center: {x: 0.36729553, y: 5.2592916, z: -0.13008825}
+--- !u!81 &2146371580
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146371575}
+  m_Enabled: 1
 --- !u!1001 &1102932042818469316
 PrefabInstance:
   m_ObjectHideFlags: 0
