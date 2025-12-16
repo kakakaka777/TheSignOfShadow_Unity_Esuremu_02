@@ -18,10 +18,11 @@ public abstract class MessageFunction : MonoBehaviour
     public Camera player01_FPCamera;
     public Camera player02_FPCamera;
 
+
     // カーソルアイコン
 
     [Header("カーソルアイコン")]
-    public Texture2D cursorIcon;
+    public GameObject cursorIcon;
 
 
     // 呼び出し側は今まで通り Activate を呼ぶ
@@ -54,8 +55,14 @@ public abstract class MessageFunction : MonoBehaviour
 
     protected void SetCurso()
     {
-        Cursor.visible = true;
-        Cursor.SetCursor(cursorIcon, Vector2.zero, CursorMode.Auto);
+        cursorIcon.SetActive(true);
     }
+
+
+    //protected void SetCurso_02()
+    //{
+    //    Cursor.visible = true;
+    //    Cursor.SetCursor(cursorIcon, Vector2.zero, CursorMode.Auto);
+    //}
 
 }

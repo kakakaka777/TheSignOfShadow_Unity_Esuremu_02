@@ -108,7 +108,7 @@ public class BloodTextMessage_02 : MessageFunction
 
         bloodTextNumber = 0;
 
-        SetCurso();
+        //SetCurso();
 
         if (Physics.Raycast(rayOrigin, rayDir, out hit, maxDistance))
         {

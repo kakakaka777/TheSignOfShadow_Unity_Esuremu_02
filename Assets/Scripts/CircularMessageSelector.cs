@@ -22,6 +22,8 @@ public class CircularMessageSelector : MonoBehaviour
     [SerializeField] float fontSize = 0.8f;
     [SerializeField] float[] yOffset = { 0.6f, 1.2f, 1.8f};
 
+    [SerializeField] GameObject cursorIcon;
+
 
     void Start()
     {
@@ -40,6 +42,7 @@ public class CircularMessageSelector : MonoBehaviour
             Vector3 pos = playerCenter.position;
             options[selectedIndex].function.canUse = true;
             Debug.Log(options[selectedIndex].function.canUse);
+            SetCurso();
             PlayerManager.isMessageSelect = true;
             options[selectedIndex].function.OnActivate(pos);
             gameObject.SetActive(false);
@@ -104,6 +107,11 @@ public class CircularMessageSelector : MonoBehaviour
                 : Vector3.one;
 
         }
+    }
+
+    void SetCurso()
+    {
+        cursorIcon.SetActive(true);
     }
 
 }
