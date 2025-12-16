@@ -90,9 +90,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool disableAfterFade = true; // フェード後に親を非アクティブ
     [SerializeField] bool destroyAfterFade = false; // フェード後に破棄（disableより優先）
 
+    private Collider playerCollider;
+    private bool isDamageOnlyOnce = false;
     private void Awake()
     {
         canvasGroup = playerChange_Ui.GetComponent<CanvasGroup>();
+        playerCollider = GetComponent<BoxCollider>();
 
     }
 
@@ -138,6 +141,8 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("Minigame を非表示にしたよ");
         }
+
+        isDamageOnlyOnce = false;
 
     }
     void Update()
@@ -380,11 +385,13 @@ public class PlayerController : MonoBehaviour
 
     public void EnterDyingState()
     {
+        if (isDamageOnlyOnce == true) return;
+
         //isDying = true;
         Debug.Log("プレイヤーは死にそうだぜ(>_<)");
         deathPosition = transform.position;
         bloodDrawingUI.SetActive(true); //血で描くUIなど表示
-
+        isDamageOnlyOnce = true;
         //if (ghostBoundaryVisual != null)
         //{
         //    GameObject ghostCircle = Instantiate(ghostBoundaryVisual, deathPosition + Vector3.up * 0.05f, Quaternion.identity);
@@ -396,10 +403,13 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        if (isDamageOnlyOnce == true) return;
+
         Debug.Log("プレイヤーは死んだぜ(>_<)");
         isDying = false;
 
         PlayerManager.deathNumber -= 1;
+        isDamageOnlyOnce = true;
 
         /*
         // 円周上にDoorを生成
@@ -429,7 +439,7 @@ public class PlayerController : MonoBehaviour
 
         messageSelectUI.SetActive(true);
         ////プレイヤー非表示に
-        
+
 
         //Minigame.SetActive(true);
 
@@ -442,6 +452,9 @@ public class PlayerController : MonoBehaviour
 
 
         //playerController.enabled = false;
+
+        
+
 
     }
 

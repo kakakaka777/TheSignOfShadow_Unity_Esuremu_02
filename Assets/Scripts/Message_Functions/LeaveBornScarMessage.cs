@@ -10,8 +10,7 @@ public class LeaveBornScarMessage :MessageFunction
     [SerializeField] int bornScarNumberMax = 1;
 
 
-    public Camera playerCamera;
-    [SerializeField] Camera playerCamera_02;
+    
 
     private int bornScarNumber = 0;
 
@@ -34,7 +33,7 @@ public class LeaveBornScarMessage :MessageFunction
             {
                 if (PlayerManager.playerID == 0)
                 {
-                    Ray ray01 = playerCamera.ScreenPointToRay(Input.mousePosition);
+                    Ray ray01 = player01_FPCamera.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray01, out hit, maxDistance))
                     {
                         CreateScratchMark(hit);
@@ -42,7 +41,7 @@ public class LeaveBornScarMessage :MessageFunction
                 }
                 if (PlayerManager.playerID == 1)
                 {
-                    Ray ray02 = playerCamera_02.ScreenPointToRay(Input.mousePosition);
+                    Ray ray02 = player02_FPCamera.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray02, out hit, maxDistance))
                     {
                         CreateScratchMark(hit);
@@ -57,16 +56,17 @@ public class LeaveBornScarMessage :MessageFunction
 
         }
 
-        // 左クリックされたら印を残す
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, maxDistance))
-            {
-                CreateScratchMark(hit);
-            }
-        }
+        // 下のやつたぶん消していい（メモ）
+        //// 左クリックされたら印を残す
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(ray, out hit, maxDistance))
+        //    {
+        //        CreateScratchMark(hit);
+        //    }
+        //}
     }
 
     public override void OnActivate(Vector3 playerPosition)
