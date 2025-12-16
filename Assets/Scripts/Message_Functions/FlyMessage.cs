@@ -26,14 +26,14 @@ public class FlyMessage : MessageFunction
         {
             flyKabashirasNumber += 1;
 
-            if (PlayerID.playerID == 0)
+            if (PlayerManager.playerID == 0)
             {
                 if (flyKabashirasNumber <= flyKabashirasNumberMax)
                 {
                     Instantiate(flyPrefab, player01.position, Quaternion.identity);
                 }
             }
-            else if (PlayerID.playerID == 1)
+            else if (PlayerManager.playerID == 1)
             {
                 if (flyKabashirasNumber <= flyKabashirasNumberMax)
                 {

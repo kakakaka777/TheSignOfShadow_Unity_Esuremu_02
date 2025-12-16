@@ -32,7 +32,7 @@ public class LeaveBornScarMessage :MessageFunction
             bornScarNumber += 1;
             if (bornScarNumber <= bornScarNumberMax)
             {
-                if (PlayerID.playerID == 0)
+                if (PlayerManager.playerID == 0)
                 {
                     Ray ray01 = playerCamera.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray01, out hit, maxDistance))
@@ -40,7 +40,7 @@ public class LeaveBornScarMessage :MessageFunction
                         CreateScratchMark(hit);
                     }
                 }
-                if (PlayerID.playerID == 1)
+                if (PlayerManager.playerID == 1)
                 {
                     Ray ray02 = playerCamera_02.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray02, out hit, maxDistance))
@@ -53,7 +53,7 @@ public class LeaveBornScarMessage :MessageFunction
 
             Debug.Log("LeaveBornScariÄŽ€‘Ìj‚Å‚«‚é‰ñ”: " + bornScarNumber + "/" + bornScarNumberMax);
 
-            Debug.Log("PlayerID: " + PlayerID.playerID);
+            Debug.Log("PlayerID: " + PlayerManager.playerID);
 
         }
 

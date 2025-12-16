@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3707616592679946438}
   - component: {fileID: 5562966623539909385}
-  - component: {fileID: 1138935943129678140}
+  - component: {fileID: -4513507601187382799}
   m_Layer: 0
-  m_Name: "\u50B7\u8DE1"
+  m_Name: Blood_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,18 +74,18 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a67a74a3e57a8cf44b40458b96ddce56, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c21b1f541cbdc404492daab2c534f944, type: 3}
+  m_Color: {r: 0.7735849, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.6, y: 3.6}
+  m_Size: {x: 12.8, y: 12.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1138935943129678140
+--- !u!114 &-4513507601187382799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e353f752b41d04fa6788a0c5eb1ea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 120
+  fadeDuration: 4
   startDelay: 0

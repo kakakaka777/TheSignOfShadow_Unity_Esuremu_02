@@ -19,6 +19,9 @@ public class CircularMessageSelector : MonoBehaviour
     private int selectedIndex = 0;
 
     [SerializeField] float rotateSpeed = 1.5f;
+    [SerializeField] float fontSize = 0.8f;
+    [SerializeField] float[] yOffset = { 0.6f, 1.2f, 1.8f};
+
 
     void Start()
     {
@@ -37,6 +40,7 @@ public class CircularMessageSelector : MonoBehaviour
             Vector3 pos = playerCenter.position;
             options[selectedIndex].function.canUse = true;
             Debug.Log(options[selectedIndex].function.canUse);
+            PlayerManager.isMessageSelect = true;
             options[selectedIndex].function.OnActivate(pos);
             gameObject.SetActive(false);
             Time.timeScale = 1f;
@@ -60,7 +64,7 @@ public class CircularMessageSelector : MonoBehaviour
         float rotateOffset = Time.time * rotateSpeed;
 
         // 各段の設定
-        float[] yOffsets = { 0f, 0.6f, 1.2f };             // Y軸オフセット
+        float[] yOffsets = { yOffset[0], yOffset[1], yOffset[2] };             // Y軸オフセット
         float[] radii = { baseRadius, baseRadius * 0.9f, baseRadius * 0.8f };
 
         for (int i = 0; i < total; i++)
@@ -82,7 +86,7 @@ public class CircularMessageSelector : MonoBehaviour
             options[i].text.transform.LookAt(playerCenter.position);
             options[i].text.transform.Rotate(0f, 180f, 0f);
             options[i].text.text = options[i].name;
-            options[i].text.fontSize = 0.8f;
+            options[i].text.fontSize = fontSize;
         }
 
 

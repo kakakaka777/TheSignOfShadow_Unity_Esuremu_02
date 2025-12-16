@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpChargeRate = 10f; // ジャンプ力のチャージ速度
 
     [Header("プレイヤーステータス")]
+    [SerializeField] GameObject Player1;
+    [SerializeField] GameObject Player2;
     public float maxHP = 100;
     public float currentHP = 0;
     public float dyingTimer = 3f;
@@ -22,6 +24,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform thirdPersonFollowTarget;
     [SerializeField] float mouseSensitivity = 100f;
     [SerializeField] float thirdPersonDistance = 3f;
+
+    [Header("カメラ設定")]
+    [SerializeField] GameObject playerChange_Ui;
+
 
     [Space(20)]
     public GameObject bloodDrawingUI;
@@ -34,6 +40,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject doorPrefab;         // 配置したいDoorのプレハブ
     [SerializeField] GameObject playerMessageCicleUI;
     [SerializeField] GameObject WinUI;
+    [SerializeField] GameObject DefeatUI;
+    [SerializeField] GameObject ZankitUI;
+
 
 
     [SerializeField] int doorCount = 1;
@@ -48,6 +57,11 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Transform goalPoint;
 
+
+    [Header("切り替えUIフェード設定")]
+    [Min(0f)] public float fadeDuration = 4f;   // 透明になるまでの秒数
+    [Min(0f)] public float startDelay = 0f;     // フェード開始までの待ち時間（不要なら0）
+
     private float xRotation = 0f;
 
     private Vector3 deathPosition; //死んだ位置を保存する
@@ -61,15 +75,37 @@ public class PlayerController : MonoBehaviour
     private bool isFirstPerson = true;
     private bool isDying = false;
     private bool isCameraOn = true;
+    private bool isCanMove = true;
 
-    
+    private CanvasGroup canvasGroup;
+    private Coroutine fadeCoroutine;
+
+    [Header("フェード設定")]
+    [Min(0.01f)]
+
+    [SerializeField] bool playOnEnable = true;   // 有効化されたら自動でフェード開始
+    [SerializeField] bool useUnscaledTime = true; // ポーズ中でも進めたいならON
+
+    [Header("フェード完了後")]
+    [SerializeField] bool disableAfterFade = true; // フェード後に親を非アクティブ
+    [SerializeField] bool destroyAfterFade = false; // フェード後に破棄（disableより優先）
+
+    private void Awake()
+    {
+        canvasGroup = playerChange_Ui.GetComponent<CanvasGroup>();
+
+    }
 
     void Start()
     {
-        this.gameObject.transform.position = startPoint.position; 
+        this.gameObject.transform.position = startPoint.position;
+
+
         circularMessageSelector.playerCenter = playerMessageCicleUI.transform;
 
         WinUI.SetActive(false);
+        DefeatUI.SetActive(false);
+
 
         //プレイヤーステータス初期化
         currentHP = maxHP;
@@ -89,6 +125,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnEnable()
     {
+        FadeOut();
         Debug.Log("SetActiveされたよ");
         if (Minigame == null)
         {
@@ -106,8 +143,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         
-
-        PlayerMoveMent();
+        if (isCanMove == true)
+        {
+            PlayerMoveMent();
+        }
+       
 
         //カメラ関連
         if (isCameraOn == true)
@@ -132,6 +172,14 @@ public class PlayerController : MonoBehaviour
         {
             Goal();
         }
+
+        if (PlayerManager.deathNumber == 0)
+        {
+            GameOver();
+        }
+
+
+        PlayerRespawnAndChangeByButton();
 
     }
 
@@ -182,6 +230,72 @@ public class PlayerController : MonoBehaviour
             currentJumpCharge = jumpForce;
         }
 
+    }
+
+    // 12/16までで一旦こっちで
+    void PlayerRespawnAndChangeByButton()
+    {
+        if (PlayerManager.isRButtonUsed == true) return;
+
+        if (PlayerManager.isMessageSelect == true)
+        {
+
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                // プレイヤー切り替え
+                if (PlayerManager.playerID == 0)
+                {
+                    // 今のプレイヤーを非表示に
+                    if (Player1 != null) Player1.SetActive(false);
+
+                    // 次プレイヤーを表示
+                    if (Player2 != null) Player2.SetActive(true);
+                    Player2.transform.position = startPoint.position;
+
+                    PlayerManager.playerID = 1;
+
+                    ZankitUI.SetActive(false);
+
+                    if (Player2 != null) playerChange_Ui.SetActive(true);
+                   
+
+
+                    PlayerManager.isMessageSelect = false;
+
+                    PlayerManager.isRButtonUsed = true;
+                    //if (nextPlayer != null) Biolea2r.SetActive(true);
+                    //if (nextPlayer != null) Biolear.SetActive(true);
+
+                }
+                else if (PlayerManager.playerID == 1)
+                {
+
+                    // 今のプレイヤーを非表示に
+                    if (Player1 != null) Player2.SetActive(false);
+
+                    // 次プレイヤーを表示
+                    if (Player2 != null) Player1.SetActive(true);
+                    Player1.transform.position = startPoint.position;
+
+                    PlayerManager.playerID = 0;
+
+                    ZankitUI.SetActive(false);
+
+                    if (Player1 != null) playerChange_Ui.SetActive(true);
+
+                    PlayerManager.isMessageSelect = false;
+
+                    PlayerManager.isRButtonUsed = true;
+
+
+                    //if (nextPlayer != null) Biolea2r.SetActive(true);
+                    //if (nextPlayer != null) Biolear.SetActive(true);
+                }
+
+            }
+        }
+        
     }
 
     void HandleViewSwitch()
@@ -284,6 +398,10 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("プレイヤーは死んだぜ(>_<)");
         isDying = false;
+
+        PlayerManager.deathNumber -= 1;
+
+        /*
         // 円周上にDoorを生成
         if (doorPrefab != null)
         {
@@ -301,7 +419,7 @@ public class PlayerController : MonoBehaviour
                 Instantiate(doorPrefab, spawnPos, rot);
             }
         }
-
+        */
         bloodDrawingUI.SetActive(false);
 
         //死亡位置にゴースト生成
@@ -343,7 +461,62 @@ public class PlayerController : MonoBehaviour
         WinUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        isCanMove = false;
+        isCameraOn = false;
+        circularMessageSelector.enabled = false;
 
     }
 
+    void GameOver()
+    {
+        DefeatUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        isCanMove = false;
+        isCameraOn = false;
+        circularMessageSelector.enabled = false;
+    }
+
+    public void FadeOut()
+    {
+        StartFade(targetAlpha: 0f);
+    }
+
+    public void FadeIn()
+    {
+        StartFade(targetAlpha: 1f);
+    }
+
+    void StartFade(float targetAlpha)
+    {
+        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+        fadeCoroutine = StartCoroutine(FadeRoutine(targetAlpha));
+    }
+
+    IEnumerator FadeRoutine(float targetAlpha)
+    {
+        float startAlpha = canvasGroup.alpha;
+        float t = 0f;
+
+        // フェード中にクリックできなくしたい場合（UIの入力を止める）
+        //canvasGroup.blocksRaycasts = false;
+        //canvasGroup.interactable = false;
+
+        while (t < fadeDuration)
+        {
+            t += useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+            float rate = Mathf.Clamp01(t / fadeDuration);
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, rate);
+            yield return null;
+        }
+
+        canvasGroup.alpha = targetAlpha;
+
+        
+        
+            // FadeInしたとき入力を戻したいならここでONにする
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
+        
+    }
 }

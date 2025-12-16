@@ -66,7 +66,7 @@ public class Door : MonoBehaviour
             if (Player2 != null) Player2.SetActive(true);
             Player2.transform.position = startPoint.position;
 
-            PlayerID.playerID = 1;
+            PlayerManager.playerID = 1;
 
             if (Player2 != null) UI.SetActive(false);
 
@@ -82,7 +82,7 @@ public class Door : MonoBehaviour
             Debug.Log("ドアに触れた！プレイヤー交代するよ");
 
 
-            PlayerID.playerID = 0;
+           
 
 
             // 今のプレイヤーを非表示に
@@ -91,6 +91,8 @@ public class Door : MonoBehaviour
             // 次プレイヤーを表示
             if (Player2 != null) Player1.SetActive(true);
             Player1.transform.position = startPoint.position;
+
+            PlayerManager.playerID = 0;
 
             if (Player2 != null) UI.SetActive(false);
 

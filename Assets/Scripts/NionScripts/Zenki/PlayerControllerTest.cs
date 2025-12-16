@@ -96,6 +96,8 @@ public class PlayerControllerTest : MonoBehaviour
         }
     }
 
+   
+
     void HandleViewSwitch()
     {
         if (Input.GetKeyDown(KeyCode.F))

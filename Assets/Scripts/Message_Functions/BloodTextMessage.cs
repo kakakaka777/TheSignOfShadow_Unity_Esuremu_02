@@ -51,6 +51,7 @@ public class BloodTextMessage : MessageFunction
             if (hitRenderer != null) PaintToSurface(hitRenderer, hitInfo);
         }
 
+
         isActivate = true;
     }
 

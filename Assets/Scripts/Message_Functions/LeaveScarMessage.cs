@@ -35,7 +35,7 @@ public class LeaveScarMessage : MessageFunction
             scarNumber += 1;
             if (scarNumber <= scarNumberMax)
             {
-                if (PlayerID.playerID == 0)
+                if (PlayerManager.playerID == 0)
                 {
                     Ray ray01 = playerCamera.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray01, out hit, maxDistance))
@@ -43,7 +43,7 @@ public class LeaveScarMessage : MessageFunction
                         CreateScratchMark(hit);
                     }
                 }
-                if (PlayerID.playerID == 1)
+                if (PlayerManager.playerID == 1)
                 {
                     Ray ray02 = playerCamera_02.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray02, out hit, maxDistance))
@@ -52,7 +52,7 @@ public class LeaveScarMessage : MessageFunction
                     }
                 }
             }
-            else
+            else if (scarNumber == scarNumberMax)
             {
                 scarNumber = scarNumberMax;
             }
@@ -61,7 +61,7 @@ public class LeaveScarMessage : MessageFunction
 
             Debug.Log("LeaveScar‚Å‚«‚é‰ñ”: " + scarNumber + "/" + scarNumberMax);
 
-            Debug.Log("PlayerID: " + PlayerID.playerID);
+            Debug.Log("PlayerID: " + PlayerManager.playerID);
 
         }
     }
@@ -84,7 +84,7 @@ public class LeaveScarMessage : MessageFunction
         }
     }
 
-    void CreateScratchMark(RaycastHit hit)
+    protected void CreateScratchMark(RaycastHit hit)
     {
         // •\–Ê‚É³‘Î‚·‚é‰ñ“]
         Quaternion baseRot = Quaternion.LookRotation(hit.normal);
