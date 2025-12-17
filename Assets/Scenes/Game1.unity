@@ -1628,6 +1628,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: needlehole (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6314872279989956805, guid: 7ec1d61cbf4e72e4ebf6c42af4df0268, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eb642d3636518874e8f38fc2cb94b130, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11543,6 +11547,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -1.332
       objectReference: {fileID: 0}
+    - target: {fileID: -7985622875249507582, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eb642d3636518874e8f38fc2cb94b130, type: 2}
     - target: {fileID: -7765565599381827367, guid: 37aea7649633203459ff56c93fd014f4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -58104,6 +58112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: needlehole
       objectReference: {fileID: 0}
+    - target: {fileID: 6314872279989956805, guid: 7ec1d61cbf4e72e4ebf6c42af4df0268, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eb642d3636518874e8f38fc2cb94b130, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
