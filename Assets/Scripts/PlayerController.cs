@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     public GameObject spawnedGhost; // 生成された死体の参照
 
     [SerializeField] Transform goalPoint;
+    [SerializeField] GameObject cursorIcon;
 
 
     [Header("切り替えUIフェード設定")]
@@ -76,9 +77,11 @@ public class PlayerController : MonoBehaviour
     private bool isDying = false;
     private bool isCameraOn = true;
     private bool isCanMove = true;
+    private bool isGameOver = false;
 
     private CanvasGroup canvasGroup;
     private Coroutine fadeCoroutine;
+    [SerializeField] MessageFunction[] messageFunctions; //ドアを通ったあと、メッセージ機能を封印したいため
 
     [Header("フェード設定")]
     [Min(0.01f)]
@@ -101,10 +104,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        PlayerManager.deathNumber = 1;
+
         this.gameObject.transform.position = startPoint.position;
 
-
-        circularMessageSelector.playerCenter = playerMessageCicleUI.transform;
+        isGameOver = false;
 
         WinUI.SetActive(false);
         DefeatUI.SetActive(false);
@@ -125,6 +129,9 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         SwitchCameraView(true);
 
+
+
+
     }
     void OnEnable()
     {
@@ -142,12 +149,33 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Minigame を非表示にしたよ");
         }
 
+        circularMessageSelector.playerCenter = playerMessageCicleUI.transform;
+
+        ZankitUI.SetActive(true);
+
         isDamageOnlyOnce = false;
+        Debug.Log("isDamageOnlyOnce : " + isDamageOnlyOnce);
+
+        if (messageFunctions != null)
+        {
+            foreach (var mf in messageFunctions)
+            {
+                if (mf != null)
+                {
+                    mf.canUse = false;   // ← ここで封印
+                }
+            }
+        }
+
+        DefeatUI.SetActive(false);
+        WinUI.SetActive(false);
 
     }
     void Update()
     {
         
+
+
         if (isCanMove == true)
         {
             PlayerMoveMent();
@@ -173,11 +201,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (this.transform.position == goalPoint.position)
-        {
-            Goal();
-        }
-
+      
+        
         if (PlayerManager.deathNumber == 0)
         {
             GameOver();
@@ -240,14 +265,16 @@ public class PlayerController : MonoBehaviour
     // 12/16までで一旦こっちで
     void PlayerRespawnAndChangeByButton()
     {
-        if (PlayerManager.isRButtonUsed == true) return;
+        //if (PlayerManager.isRButtonUsed == true) return;
 
         if (PlayerManager.isMessageSelect == true)
         {
-
+            
 
             if (Input.GetKeyDown(KeyCode.R))
             {
+                cursorIcon.SetActive(false);
+
                 // プレイヤー切り替え
                 if (PlayerManager.playerID == 0)
                 {
@@ -277,10 +304,10 @@ public class PlayerController : MonoBehaviour
                 {
 
                     // 今のプレイヤーを非表示に
-                    if (Player1 != null) Player2.SetActive(false);
+                    if (Player2 != null) Player2.SetActive(false);
 
                     // 次プレイヤーを表示
-                    if (Player2 != null) Player1.SetActive(true);
+                    if (Player1 != null) Player1.SetActive(true);
                     Player1.transform.position = startPoint.position;
 
                     PlayerManager.playerID = 0;
@@ -482,12 +509,15 @@ public class PlayerController : MonoBehaviour
 
     void GameOver()
     {
+        if (isGameOver == true) return;
+
         DefeatUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         isCanMove = false;
         isCameraOn = false;
         circularMessageSelector.enabled = false;
+        isGameOver = true;
     }
 
     public void FadeOut()
