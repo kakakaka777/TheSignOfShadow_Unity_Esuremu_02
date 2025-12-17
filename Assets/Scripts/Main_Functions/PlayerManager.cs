@@ -11,7 +11,7 @@ public static class PlayerManager
 
     public static Transform playTransform;
 
-    public static int deathNumber = 1;
+    public static int deathNumber = 10;
 
     public static bool isMessageSelect = false;
 

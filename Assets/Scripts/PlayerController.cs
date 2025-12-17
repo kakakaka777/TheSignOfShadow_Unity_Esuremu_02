@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        PlayerManager.deathNumber = 1;
+        
 
         this.gameObject.transform.position = startPoint.position;
 
@@ -287,7 +287,7 @@ public class PlayerController : MonoBehaviour
 
                     PlayerManager.playerID = 1;
 
-                    ZankitUI.SetActive(false);
+                    
 
                     if (Player2 != null) playerChange_Ui.SetActive(true);
                    
@@ -312,7 +312,7 @@ public class PlayerController : MonoBehaviour
 
                     PlayerManager.playerID = 0;
 
-                    ZankitUI.SetActive(false);
+                    
 
                     if (Player1 != null) playerChange_Ui.SetActive(true);
 

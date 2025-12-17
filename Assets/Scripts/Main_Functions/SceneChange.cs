@@ -22,10 +22,13 @@ public class SceneChange : MonoBehaviour
     public void ChangeScene()
     {
         SceneManager.LoadScene(sceneName);
+
+        PlayerManager.deathNumber = 10;
     }
 
     public void ChangeScene_ToTitle()
     {
         SceneManager.LoadScene("Title");
+        PlayerManager.deathNumber = 10;
     }
 }
