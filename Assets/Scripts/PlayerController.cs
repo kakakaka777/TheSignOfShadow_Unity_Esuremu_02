@@ -136,6 +136,7 @@ public class PlayerController : MonoBehaviour
     void OnEnable()
     {
         FadeOut();
+
         Debug.Log("SetActiveÇ≥ÇÍÇΩÇÊ");
         if (Minigame == null)
         {
@@ -170,6 +171,7 @@ public class PlayerController : MonoBehaviour
         DefeatUI.SetActive(false);
         WinUI.SetActive(false);
 
+        
     }
     void Update()
     {
@@ -274,7 +276,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 cursorIcon.SetActive(false);
-
+                PlayerManager.onlyFadeOut = 2;
                 // ÉvÉåÉCÉÑÅ[êÿÇËë÷Ç¶
                 if (PlayerManager.playerID == 0)
                 {
@@ -522,7 +524,17 @@ public class PlayerController : MonoBehaviour
 
     public void FadeOut()
     {
-        StartFade(targetAlpha: 0f);
+
+        if (PlayerManager.onlyFadeOut == 2)
+        {
+            playerChange_Ui.SetActive(true);
+            canvasGroup.alpha = 1;
+
+            StartFade(targetAlpha: 0f);
+        }
+       
+
+        
     }
 
     public void FadeIn()

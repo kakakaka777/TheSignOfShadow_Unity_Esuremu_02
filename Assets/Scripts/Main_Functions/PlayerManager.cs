@@ -13,6 +13,8 @@ public static class PlayerManager
 
     public static int deathNumber = 10;
 
+    public static int onlyFadeOut = 0;
+
     public static bool isMessageSelect = false;
 
     public static bool isRButtonUsed = false;

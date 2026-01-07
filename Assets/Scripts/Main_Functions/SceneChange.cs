@@ -24,11 +24,14 @@ public class SceneChange : MonoBehaviour
         SceneManager.LoadScene(sceneName);
 
         PlayerManager.deathNumber = 10;
+        PlayerManager.onlyFadeOut = 0;
     }
 
     public void ChangeScene_ToTitle()
     {
         SceneManager.LoadScene("Title");
         PlayerManager.deathNumber = 10;
+        PlayerManager.onlyFadeOut = 0;
+
     }
 }
