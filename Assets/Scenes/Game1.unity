@@ -52744,7 +52744,7 @@ MonoBehaviour:
     text: {fileID: 276104051}
   playerCenter: {fileID: 0}
   radius: 2
-  rotateSpeed: 0.09
+  rotateSpeed: 0
   fontSize: 0.3
   yOffset:
   - 0.15
