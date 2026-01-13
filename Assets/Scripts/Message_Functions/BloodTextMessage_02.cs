@@ -14,8 +14,8 @@ public class BloodTextMessage_02 : MessageFunction
     private ParticleSystem paintParticleSystem;
     [SerializeField] Color paintColor = new Color(0.7f, 0f, 0f, 1f);
     [Min(0.05f)] public float particleLifetime = 4f; // ‚±‚ê‚Å™X‚ÉÁ‚¦‚é
-    [Min(0f)] public float sizeMin = 0.07f;
-    [Min(0f)] public float sizeMax = 0.12f;
+    //[Min(0f)] public float sizeMin = 0.07f;
+    //[Min(0f)] public float sizeMax = 0.12f;
 
     [Tooltip("ŒŒ•¶š‚ğ‚©‚¯‚éÅ‘å”")]
     [SerializeField] int bloodTextNumberMax = 6;

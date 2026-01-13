@@ -6,10 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     [Header("プレイヤー移動")]
     [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float acceleration = 50f; // 加速度（キビキビ動くか、慣性がつくか）
     [SerializeField] float jumpForce = 5f;
     [SerializeField] float deadMaxMoveDistance = 3f;
     [SerializeField] float maxJumpCharge = 8f; // 最大ジャンプ力
     [SerializeField] float jumpChargeRate = 10f; // ジャンプ力のチャージ速度
+    [SerializeField] float gravityScale = 1.5f; // 通常時の重力倍率
+    [SerializeField] float fallGravityMult = 2.5f; // 落下時の重力倍率（ここを上げるとキビキビする）
 
     [Header("プレイヤーステータス")]
     [SerializeField] GameObject Player1;
@@ -17,6 +20,11 @@ public class PlayerController : MonoBehaviour
     public float maxHP = 100;
     public float currentHP = 0;
     public float dyingTimer = 3f;
+
+    [Header("接地判定")]
+    [SerializeField] LayerMask groundLayer; // 地面として認識するレイヤー
+    [SerializeField] float groundCheckRadius = 0.3f; // 足元の判定範囲
+    [SerializeField] float groundCheckOffset = 0.1f; // 足元からどれくらい下を調べるか
 
     [Header("カメラ設定")]
     [SerializeField] Camera firstPersonCamera;
@@ -46,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
 
     [SerializeField] int doorCount = 1;
-
+    [SerializeField] GameObject timeLimit;
 
     [SerializeField] CircularMessageSelector circularMessageSelector;
 
@@ -66,6 +74,7 @@ public class PlayerController : MonoBehaviour
     private float xRotation = 0f;
 
     private Vector3 deathPosition; //死んだ位置を保存する
+    private Vector3 moveInput; // Updateで受け取った入力
 
     private float currentJumpCharge;
     //[SerializeField] float jumpFoce = 3f;
@@ -94,7 +103,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool destroyAfterFade = false; // フェード後に破棄（disableより優先）
 
     private Collider playerCollider;
-    private bool isDamageOnlyOnce = false;
+    
     private void Awake()
     {
         canvasGroup = playerChange_Ui.GetComponent<CanvasGroup>();
@@ -104,9 +113,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+       
 
         this.gameObject.transform.position = startPoint.position;
+        
 
         isGameOver = false;
 
@@ -135,6 +145,9 @@ public class PlayerController : MonoBehaviour
     }
     void OnEnable()
     {
+
+        
+
         FadeOut();
 
         Debug.Log("SetActiveされたよ");
@@ -154,8 +167,8 @@ public class PlayerController : MonoBehaviour
 
         ZankitUI.SetActive(true);
 
-        isDamageOnlyOnce = false;
-        Debug.Log("isDamageOnlyOnce : " + isDamageOnlyOnce);
+        
+        Debug.Log("isDamageOnlyOnce : " + PlayerManager.isDamageOnlyOnce);
 
         if (messageFunctions != null)
         {
@@ -175,8 +188,9 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        
+        Debug.Log("isDamageOnlyOnce" + PlayerManager.isDamageOnlyOnce);
 
+        
 
         if (isCanMove == true)
         {
@@ -215,37 +229,51 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // 物理挙動はFixedUpdateで行う
+    void FixedUpdate()
+    {
+        if (isCanMove)
+        {
+            CheckGround(); // 接地判定
+            ApplyMovement(); // 移動適用
+            ApplyCustomGravity(); // 重力調整
+        }
+    }
+
     void PlayerMoveMent()
     {
-        Vector3 move = Vector3.zero;
+        // 1. 入力ベクトルの取得と正規化
+        float h = 0f;
+        float v = 0f;
+        if (Input.GetKey(KeyCode.W)) v += 1f;
+        if (Input.GetKey(KeyCode.S)) v -= 1f;
+        if (Input.GetKey(KeyCode.A)) h -= 1f;
+        if (Input.GetKey(KeyCode.D)) h += 1f;
 
+        // カメラの向きに合わせてベクトルを変換
+        Vector3 forward = Camera.main.transform.forward;
+        Vector3 right = Camera.main.transform.right;
 
-        if (Input.GetKey(KeyCode.W)) move += Vector3.forward;
-        if (Input.GetKey(KeyCode.S)) move += Vector3.back;
-        if (Input.GetKey(KeyCode.A)) move += Vector3.left;
-        if (Input.GetKey(KeyCode.D)) move += Vector3.right;
+        forward.y = 0; // 上下方向の影響を排除
+        right.y = 0;
+        forward.Normalize();
+        right.Normalize();
 
-        
-        move = Camera.main.transform.TransformDirection(move);
-        move.y = 0;
+        Vector3 desiredMove = forward * v + right * h;
 
-        Vector3 nextPos = transform.position + move.normalized * moveSpeed * Time.deltaTime;
-
-
-        if (isDying && Vector3.Distance(deathPosition, nextPos) > deadMaxMoveDistance)
+        // 【改善点①】ベクトルの正規化（斜め移動対策）
+        if (desiredMove.magnitude > 1f)
         {
-            return; // 範囲外なら動かない
+            desiredMove.Normalize();
         }
 
-        rb.MovePosition(nextPos);
+        moveInput = desiredMove;
 
-
-        //ジャンプ
+        // ジャンプチャージ処理
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             isChargingJump = true;
             currentJumpCharge = jumpForce;
-
         }
 
         if (Input.GetKey(KeyCode.Space) && isChargingJump)
@@ -254,14 +282,76 @@ public class PlayerController : MonoBehaviour
             currentJumpCharge = Mathf.Clamp(currentJumpCharge, 0f, maxJumpCharge);
         }
 
-        // Spaceキーを離したときにジャンプ
-        if (Input.GetKeyUp(KeyCode.Space) && isChargingJump && isGrounded)
+        // ジャンプ実行
+        if (Input.GetKeyUp(KeyCode.Space) && isChargingJump)
         {
             isChargingJump = false;
-            rb.velocity = new Vector3(rb.velocity.x, currentJumpCharge, rb.velocity.z);
-            currentJumpCharge = jumpForce;
+            if (isGrounded)
+            {
+                Jump(currentJumpCharge);
+            }
+            currentJumpCharge = jumpForce; // リセット
         }
 
+    }
+
+    // 物理移動（FixedUpdate内）
+    void ApplyMovement()
+    {
+        // isDying時の制限
+        if (isDying && deathPosition != Vector3.zero)
+        {
+            if (Vector3.Distance(deathPosition, transform.position + moveInput * moveSpeed * Time.fixedDeltaTime) > deadMaxMoveDistance)
+            {
+                moveInput = Vector3.zero; // 移動させない
+            }
+        }
+
+        // 現在の速度（Y軸＝重力落下成分 は維持する）
+        Vector3 targetVelocity = new Vector3(moveInput.x * moveSpeed, rb.velocity.y, moveInput.z * moveSpeed);
+
+        // 速度を直接書き換えてキビキビ動かす（慣性を減らす）
+        // ※もっと慣性をつけたい場合は Vector3.MoveTowards や Lerp を使う
+        rb.velocity = Vector3.Lerp(rb.velocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+    }
+
+    // 【改善点②】カスタム重力（FixedUpdate内）
+    void ApplyCustomGravity()
+    {
+        // 落下中は重力を強くする（キビキビさせるコツ）
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallGravityMult - 1) * Time.fixedDeltaTime;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        {
+            // ジャンプ中にボタンを離したら、上昇を早めに止める（小ジャンプの制御）
+            rb.velocity += Vector3.up * Physics.gravity.y * (gravityScale - 1) * Time.fixedDeltaTime;
+        }
+    }
+
+    void Jump(float force)
+    {
+        // 既存のY速度をリセットしてからジャンプ力を加える（安定する）
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(Vector3.up * force, ForceMode.Impulse);
+    }
+
+    // 【改善点③】接地判定（SphereCastを使用）
+    void CheckGround()
+    {
+        // 足元から少し上の位置から、下に向かって球体を飛ばして地面があるか調べる
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
+
+        // SphereCast(原点, 半径, 方向, ヒット情報, 最大距離, レイヤー)
+        // Physics.AllLayers だと自分自身に当たる可能性があるので、本来はLayerMask推奨
+        // ここでは簡易的に Player以外とするか、Groundレイヤーを設定してください
+
+        // ※注意：Ground Layerが設定されていない場合は全てに当たります
+        isGrounded = Physics.SphereCast(origin, groundCheckRadius, Vector3.down, out RaycastHit hit, 0.5f + groundCheckOffset, groundLayer);
+
+        // デバッグ用（シーンビューで赤い線が見えます）
+        Debug.DrawRay(origin, Vector3.down * (0.5f + groundCheckOffset), isGrounded ? Color.green : Color.red);
     }
 
     // 12/16までで一旦こっちで
@@ -275,6 +365,9 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.R))
             {
+                PlayerManager.isDamageOnlyOnce = false;
+
+
                 cursorIcon.SetActive(false);
                 PlayerManager.onlyFadeOut = 2;
                 // プレイヤー切り替え
@@ -414,13 +507,13 @@ public class PlayerController : MonoBehaviour
 
     public void EnterDyingState()
     {
-        if (isDamageOnlyOnce == true) return;
+        if (PlayerManager.isDamageOnlyOnce == true) return;
 
         //isDying = true;
         Debug.Log("プレイヤーは死にそうだぜ(>_<)");
         deathPosition = transform.position;
         bloodDrawingUI.SetActive(true); //血で描くUIなど表示
-        isDamageOnlyOnce = true;
+        PlayerManager.isDamageOnlyOnce = true;
         //if (ghostBoundaryVisual != null)
         //{
         //    GameObject ghostCircle = Instantiate(ghostBoundaryVisual, deathPosition + Vector3.up * 0.05f, Quaternion.identity);
@@ -432,13 +525,13 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        if (isDamageOnlyOnce == true) return;
+        if (PlayerManager.isDamageOnlyOnce == true) return;
 
         Debug.Log("プレイヤーは死んだぜ(>_<)");
         isDying = false;
 
         PlayerManager.deathNumber -= 1;
-        isDamageOnlyOnce = true;
+        PlayerManager.isDamageOnlyOnce = true;
 
         /*
         // 円周上にDoorを生成

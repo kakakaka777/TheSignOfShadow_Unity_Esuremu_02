@@ -19,5 +19,6 @@ public static class PlayerManager
 
     public static bool isRButtonUsed = false;
 
+    public static bool isDamageOnlyOnce = false;
 
 }
