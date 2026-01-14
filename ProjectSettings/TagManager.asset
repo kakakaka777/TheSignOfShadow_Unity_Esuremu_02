@@ -48,6 +48,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: OnibiEffect
+    uniqueID: 2758776425
+    locked: 0
   - name: MessagFunction
     uniqueID: 1939664127
     locked: 0

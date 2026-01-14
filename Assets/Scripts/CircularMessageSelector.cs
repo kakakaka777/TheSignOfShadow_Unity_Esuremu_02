@@ -11,6 +11,8 @@ public class CircularMessageSelector : MonoBehaviour
         public string name;
         public MessageFunction function;
         public TextMeshProUGUI text;
+        public GameObject effect;
+
     }
 
     public Option[] options;
@@ -21,6 +23,10 @@ public class CircularMessageSelector : MonoBehaviour
     [SerializeField] float rotateSpeed = 1.5f;
     [SerializeField] float fontSize = 0.8f;
     [SerializeField] float[] yOffset = { 0.6f, 1.2f, 1.8f};
+    [SerializeField] Color text_defaultColor = Color.white;
+    [SerializeField] Color text_selectedColor = Color.red;
+
+
 
     [SerializeField] GameObject cursorIcon;
 
@@ -90,6 +96,13 @@ public class CircularMessageSelector : MonoBehaviour
             options[i].text.transform.Rotate(0f, 180f, 0f);
             options[i].text.text = options[i].name;
             options[i].text.fontSize = fontSize;
+
+            // UI要素の配置とビジュアル更新
+            options[i].effect.transform.position = worldPos;
+            options[i].effect.transform.LookAt(playerCenter.position);
+            options[i].effect.transform.Rotate(0f, 180f, 0f);
+
+
         }
 
 
@@ -100,13 +113,16 @@ public class CircularMessageSelector : MonoBehaviour
     {
         for (int i = 0; i < options.Length; i++)
         {
-            options[i].text.color = (i == selectedIndex) ? Color.red : Color.white;
+            options[i].text.color = (i == selectedIndex) ? text_selectedColor : text_defaultColor;
             float scale = 1f + Mathf.Sin(Time.time * 3f) * 0.1f; // 呼吸する感じ
             options[i].text.transform.localScale = (i == selectedIndex)
                 ? Vector3.one * scale
                 : Vector3.one;
 
         }
+
+   
+
     }
 
     void SetCurso()
