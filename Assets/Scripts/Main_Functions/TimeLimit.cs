@@ -5,13 +5,12 @@ using TMPro;
 
 public class TimeLimit : MonoBehaviour
 {
-    
-    public float CountDown = 30f;
+    public float MaxTimer = 30f;
+    private float CountDown = 30f;
     [SerializeField]
     private TextMeshProUGUI TimeOverText;
     [SerializeField] private string prefix = "制限時間 ";
     [SerializeField] GameObject messageSelectUI;
-
 
 
 
@@ -23,19 +22,35 @@ public class TimeLimit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 時間をカウントダウンする
+        if (UiManager.isTimeCountDown == false) return;
+
+        if (UiManager.isTimeCountStart == true)
+        {
+            CountDown = MaxTimer;
+            UiManager.isTimeCountStart = false;
+        }
+
+
         CountDown -= Time.deltaTime;
+        CountDown = Mathf.Clamp(CountDown, 0f, MaxTimer);
+        //Debug.Log("isTimeCountDown : " + UiManager.isTimeCountDown);
 
         // 時間を表示する
-        TimeOverText.text =  prefix + CountDown.ToString("f0") + "秒";
+        TimeOverText.text =  prefix + CountDown.ToString("f2");
+
+        
 
         // countdownが0以下になったとき
         if (CountDown <= 0)
         {
 
-            CountDown = 0f;
+            CountDown = 0.00f;
+
+            UiManager.isTimeCountDown = false;
 
             if (PlayerManager.isDamageOnlyOnce == true) return;
+
+            TimeOverText.text = 0 + CountDown.ToString("f2");
 
             PlayerManager.isDamageOnlyOnce = true;
             messageSelectUI.SetActive(true);

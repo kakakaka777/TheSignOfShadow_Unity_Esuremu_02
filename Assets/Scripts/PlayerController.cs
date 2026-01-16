@@ -114,8 +114,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
        
-
-        this.gameObject.transform.position = startPoint.position;
+        // たまにデバッグ用にコメントアウトするかもだから、終わったらなおすんだぜYou
+        //this.gameObject.transform.position = startPoint.position;
         
 
         isGameOver = false;
@@ -366,7 +366,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 PlayerManager.isDamageOnlyOnce = false;
-
+                UiManager.isTimeCountDown = true;
+                UiManager.isTimeCountStart = true;
+                Debug.Log("isTimeCountDown : " + UiManager.isTimeCountDown);
 
                 cursorIcon.SetActive(false);
                 PlayerManager.onlyFadeOut = 2;
@@ -530,6 +532,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log("プレイヤーは死んだぜ(>_<)");
         isDying = false;
 
+        // 死亡時、カウントダウン
+        UiManager.isTimeCountDown = false;
+
         PlayerManager.deathNumber -= 1;
         PlayerManager.isDamageOnlyOnce = true;
 
@@ -637,7 +642,11 @@ public class PlayerController : MonoBehaviour
 
     void StartFade(float targetAlpha)
     {
-        if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+            
+        }
         fadeCoroutine = StartCoroutine(FadeRoutine(targetAlpha));
     }
 
