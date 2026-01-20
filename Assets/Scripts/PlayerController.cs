@@ -164,6 +164,7 @@ public class PlayerController : MonoBehaviour
         }
 
         circularMessageSelector.playerCenter = playerMessageCicleUI.transform;
+        PlayerManager.playTransform = this.transform;
 
         ZankitUI.SetActive(true);
 
