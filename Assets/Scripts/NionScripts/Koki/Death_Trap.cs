@@ -80,6 +80,7 @@ public class Death_Trap : MonoBehaviour
             // êGÇÍÇΩèuä‘Ç…ë¶éÄ
             KillPlayer(other.gameObject);
             isDead = true;
+            Debug.Log("ë¶éÄ");
         }
         else // AfterStaySeconds
         {
