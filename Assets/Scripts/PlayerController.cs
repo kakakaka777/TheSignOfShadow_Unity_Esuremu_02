@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject timeLimit;
 
     [SerializeField] CircularMessageSelector circularMessageSelector;
+    [SerializeField] DeathSpawnController deathSpawnController;
 
 
     private Rigidbody rb;
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
     private bool isFirstPerson = true;
     private bool isDying = false;
+    private bool isDead = false;
     private bool isCameraOn = true;
     private bool isCanMove = true;
     private bool isGameOver = false;
@@ -104,6 +106,7 @@ public class PlayerController : MonoBehaviour
 
     private Collider playerCollider;
     
+    private GameObject spawnedObject;
     private void Awake()
     {
         canvasGroup = playerChange_Ui.GetComponent<CanvasGroup>();
@@ -367,6 +370,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 PlayerManager.isDamageOnlyOnce = false;
+                isDead = false;
                 UiManager.isTimeCountDown = true;
                 UiManager.isTimeCountStart = true;
                 Debug.Log("isTimeCountDown : " + UiManager.isTimeCountDown);
@@ -528,7 +532,30 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        if (PlayerManager.isDamageOnlyOnce == true) return;
+        Debug.Log("=== Die() 開始 ===");
+        Debug.Log("isDead = " + isDead);
+        Debug.Log("isDamageOnlyOnce = " + PlayerManager.isDamageOnlyOnce);
+        Debug.Log("deathSpawnController = " + deathSpawnController);
+
+        if (isDead)
+        {
+            Debug.Log("isDead で return");
+            return;
+        }
+        isDead = true;
+
+        
+
+        //Debug.Log("Die() 呼ばれた: " + Time.frameCount + "フレーム目");
+       
+
+        deathSpawnController.Spawn();
+
+        if (PlayerManager.isDamageOnlyOnce == true)
+        {
+            Debug.Log("isDamageOnlyOnce で return");
+            return;
+        }
 
         Debug.Log("プレイヤーは死んだぜ(>_<)");
         isDying = false;
@@ -538,7 +565,10 @@ public class PlayerController : MonoBehaviour
 
         PlayerManager.deathNumber -= 1;
         PlayerManager.isDamageOnlyOnce = true;
-
+        
+        // 扉生成
+        
+        Debug.Log("扉生成っぴ！！");
         /*
         // 円周上にDoorを生成
         if (doorPrefab != null)

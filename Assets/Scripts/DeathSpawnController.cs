@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DeathSpawnController : MonoBehaviour
 {
+
+
     public enum ScaleAxis { X, Y }
     public enum BillboardMode { Full, YawOnly } // Full: 完全にカメラ向き / YawOnly: 水平回転のみ
 
@@ -49,11 +51,22 @@ public class DeathSpawnController : MonoBehaviour
     [SerializeField] private BillboardMode billboardMode = BillboardMode.YawOnly;
     [SerializeField] private Camera targetCamera;
 
+
+
     // =========================
     // 外から呼ぶ入口（プレイヤー死亡時）
     // =========================
     public GameObject Spawn()
     {
+        //Debug.Log("Box の中心（ワールド座標）: " + transform.TransformPoint(boxCenterLocal));
+        //Debug.Log("プレイヤー位置: " + PlayerManager.playTransform.position);
+        //Debug.Log("Spawn() 呼ばれた: " + Time.frameCount + "フレーム目");
+        //Debug.Log("Spawn() 呼ばれた: " + System.Environment.StackTrace);
+
+        
+
+        
+
         if (!spawnPrefab)
         {
             Debug.LogError("[DeathSpawnController] spawnPrefab が未設定です。");
@@ -63,13 +76,15 @@ public class DeathSpawnController : MonoBehaviour
         Vector3 spawnPos;
         Quaternion spawnRot;
 
+
+
         if (!TryGetSpawnPose(out spawnPos, out spawnRot))
         {
             // 地面が見つからない/条件合わない
             return null;
         }
-
-        var go = Instantiate(spawnPrefab, spawnPos, spawnRot, spawnedParent);
+        Debug.Log("生成位置: " + spawnPos);  // ← これを追加
+        var go = Instantiate(spawnPrefab, spawnPos, spawnRot);
 
         // Billboard
         if (enableBillboard)
