@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WhisperTrigger : MonoBehaviour
+public class WhisperZoonTrigger : MonoBehaviour
 {
     private AudioSource audioSource;
     public float triggerRadius = 7f;

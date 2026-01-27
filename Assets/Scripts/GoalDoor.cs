@@ -63,7 +63,7 @@ public class GoalDoor : MonoBehaviour
 
         bool inRange = IsAnyPlayerInRange(out float nearestDist);
 
-        bool hasKey = (GameManager.Instance != null && GameManager.Instance.hasKey);
+        bool hasKey = (GameManager_Sora.Instance != null && GameManager_Sora.Instance.hasKey);
 
         // ★デバッグログ（今だけ有効でOK）
         Debug.Log($"[GoalDoor] KeyPressed={interactKey} inRange={inRange} nearestDist={nearestDist:0.00} hasKey={hasKey} playersCount={(players == null ? 0 : players.Length)}");

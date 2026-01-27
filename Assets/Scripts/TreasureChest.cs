@@ -39,13 +39,13 @@ public class TreasureChest : MonoBehaviour
         isOpened = true;
         StartCoroutine(OpenTop());
 
-        GameManager.Instance?.GetKey();
+        GameManager_Sora.Instance?.GetKey();
 
         // ★メッセージ
         MessageUI.Show("You get a key.");
 
         // ★確認用ログ（ここが true になってるかが重要）
-        Debug.Log($"[TreasureChest] hasKey = {GameManager.Instance != null && GameManager.Instance.hasKey}");
+        Debug.Log($"[TreasureChest] hasKey = {GameManager_Sora.Instance != null && GameManager_Sora.Instance.hasKey}");
     }
 
     System.Collections.IEnumerator OpenTop()

@@ -49,7 +49,7 @@ public class GhostController : MonoBehaviour
     void LeaveWhisper()
     {
         GameObject whisper = Instantiate(whisperPrefab, transform.position, Quaternion.identity);
-        whisper.GetComponent<WhisperTrigger>().SetClip(GetComponent<WhisperRecorder>().recordedClip);
+        whisper.GetComponent<WhisperZoonTrigger>().SetClip(GetComponent<WhisperRecorder>().recordedClip);
         usedMessage = true;
     }
 }
