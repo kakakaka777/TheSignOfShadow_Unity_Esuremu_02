@@ -29747,8 +29747,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1048053358}
+  - component: {fileID: 1048053359}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GeneiObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29769,6 +29770,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1297571542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1048053359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048053357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94478535641e5ae4d8ff8ab5dba50da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canUse: 0
+  clickUsed: 0
+  player01: {fileID: 1994713196}
+  player02: {fileID: 2146371576}
+  player01_FPCamera: {fileID: 1435030825}
+  player02_FPCamera: {fileID: 493927117}
+  cursorIcon: {fileID: 0}
+  geneiPrefab: {fileID: 5366690061348397049, guid: dc042050fa182f84a91221fe24af8535, type: 3}
+  geneiNumberMax: 3
+  maxDistance: 5
+  recordDuration: 3
+  recordInterval: 0.1
+  geneiPlaybackDuration: 3
+  loopPlayback: 1
+  geneiAlpha: 0.15
+  geneiColor: {r: 0.6396227, g: 0.82304823, b: 1, a: 0.5}
+  useURP: 1
 --- !u!1001 &1048231921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58052,8 +58082,8 @@ MonoBehaviour:
     function: {fileID: 588060464}
     text: {fileID: 460722404}
     effect: {fileID: 1635498719}
-  - name: ???
-    function: {fileID: 588060464}
+  - name: "\u5E7B\u5F71"
+    function: {fileID: 1048053359}
     text: {fileID: 1981278541}
     effect: {fileID: 1145256640}
   - name: ???
