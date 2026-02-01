@@ -11,7 +11,7 @@ public static class PlayerManager
 
     public static Transform playTransform;
 
-    public static int deathNumber = 10;
+    public static int deathNumber = 22;
 
     public static int onlyFadeOut = 0;
 
